@@ -7,7 +7,7 @@ import androidx.lifecycle.ViewModel
 class DeliverablesViewModel : ViewModel() {
 
     private val _text = MutableLiveData<String>().apply {
-        value = "This is the Deliverables Fragment"
+        value = "This is the Deliverables Section"
     }
     val text: LiveData<String> = _text
 }

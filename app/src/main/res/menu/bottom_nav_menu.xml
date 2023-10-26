@@ -17,13 +17,17 @@
         android:title="@string/title_notifications" /> -->
 
     <item
+        android:id="@+id/navigation_deliverables"
+        android:icon="@drawable/ic_deliverables_black_24dp"
+        android:title="@string/title_deliverables" />
+
+    <item
         android:id="@+id/navigation_courses"
         android:icon="@drawable/ic_courses_black_24dp"
         android:title="@string/title_courses" />
 
     <item
-        android:id="@+id/navigation_deliverables"
-        android:icon="@drawable/ic_deliverables_black_24dp"
-        android:title="@string/title_deliverables" />
-
+        android:id="@+id/navigation_settings"
+        android:icon="@drawable/grade_tracker_symbol"
+        android:title="@string/title_settings" />
 </menu>

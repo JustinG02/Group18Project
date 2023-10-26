@@ -7,6 +7,20 @@
     tools:context=".ui.courses.CoursesFragment">
 
     <TextView
+        android:id="@+id/gpa"
+        android:layout_width="108dp"
+        android:layout_height="29dp"
+        android:alpha="6"
+        android:text="GPA: "
+        android:textAlignment="center"
+        android:textSize="20sp"
+        android:visibility="visible"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:background="@drawable/rounded_corner_gpa"/>
+
+    <TextView
         android:id="@+id/text_courses"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -19,4 +33,28 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/add_course"
+        android:layout_width="365dp"
+        android:layout_height="60dp"
+        android:text="Add Course"
+        app:icon="@drawable/baseline_add_24"
+        app:iconGravity="textStart"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/text_courses"
+        app:layout_constraintVertical_bias="0.051" />
+
+    <Button
+        android:id="@+id/courses_history"
+        android:layout_width="365dp"
+        android:layout_height="60dp"
+        android:text="Courses History"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/add_course"
+        app:layout_constraintVertical_bias="0.051" />
 </androidx.constraintlayout.widget.ConstraintLayout>
