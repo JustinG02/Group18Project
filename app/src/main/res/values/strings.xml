@@ -1,8 +1,9 @@
 <resources>
-    <string name="app_name">Group18Project</string>
+    <string name="app_name">Grade Tracker</string>
     <string name="title_home">Home</string>
     <string name="title_dashboard">Dashboard</string>
     <string name="title_notifications">Notifications</string>
     <string name="title_courses">Courses</string>
     <string name="title_deliverables">Deliverables</string>
+    <string name="title_settings">Settings</string>
 </resources>

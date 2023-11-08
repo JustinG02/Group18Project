@@ -6,24 +6,6 @@
     app:startDestination="@+id/navigation_courses">
 
     <fragment
-        android:id="@+id/navigation_home"
-        android:name="ca.unb.mobiledev.group18project.ui.home.HomeFragment"
-        android:label="@string/title_home"
-        tools:layout="@layout/fragment_home" />
-
-    <fragment
-        android:id="@+id/navigation_dashboard"
-        android:name="ca.unb.mobiledev.group18project.ui.dashboard.DashboardFragment"
-        android:label="@string/title_dashboard"
-        tools:layout="@layout/fragment_dashboard" />
-
-    <fragment
-        android:id="@+id/navigation_notifications"
-        android:name="ca.unb.mobiledev.group18project.ui.notifications.NotificationsFragment"
-        android:label="@string/title_notifications"
-        tools:layout="@layout/fragment_notifications" />
-
-    <fragment
         android:id="@+id/navigation_courses"
         android:name="ca.unb.mobiledev.group18project.ui.courses.CoursesFragment"
         android:label="@string/title_courses"
@@ -34,4 +16,10 @@
         android:name="ca.unb.mobiledev.group18project.ui.deliverables.DeliverablesFragment"
         android:label="@string/title_deliverables"
         tools:layout="@layout/fragment_deliverables" />
+
+    <fragment
+        android:id="@+id/navigation_settings"
+        android:name="ca.unb.mobiledev.group18project.ui.settings.SettingsFragment"
+        android:label="@string/title_settings"
+        tools:layout="@layout/fragment_settings" />
 </navigation>
