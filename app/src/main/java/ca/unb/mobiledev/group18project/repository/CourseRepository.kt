@@ -19,7 +19,20 @@ class CourseRepository(application: Application) {
         AppDatabase.databaseWriterExecutor.execute { courseDao!!.insertCourse(course) }
     }
 
-    fun getAllRecords(): List<Courses> {
+    fun updateRecord(course: Courses) {
+        AppDatabase.databaseWriterExecutor.execute { courseDao!!.updateCourse(course) }
+    }
+
+    fun deleteRecordByName(name: String) {
+        AppDatabase.databaseWriterExecutor.execute { courseDao!!.deleteCourseByName(name) }
+    }
+
+    fun deleteRecord(course: Courses) {
+        AppDatabase.databaseWriterExecutor.execute { courseDao!!.deleteCourse(course) }
+    }
+
+
+    fun getAllRecords(): LiveData<List<Courses>> {
         val searchResultFuture = Executors.newSingleThreadExecutor().submit(Callable {
             courseDao!!.listAllCourses()
         })

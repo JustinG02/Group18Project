@@ -2,7 +2,6 @@ package ca.unb.mobiledev.group18project.ui.courses
 
 import android.content.Context
 import android.view.LayoutInflater
-import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
@@ -13,7 +12,7 @@ import ca.unb.mobiledev.group18project.R
 import ca.unb.mobiledev.group18project.entities.Courses
 
 
-class CoursesAdapter(context: Context, items: List<Courses>) : ArrayAdapter<Courses>(
+class CoursesAdapter(context: Context, items: List<Courses>, private val viewmodel: CoursesViewModel, private val fragment: CoursesFragment) : ArrayAdapter<Courses>(
     context, 0, items) {
     override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
         // Get the data item for this position
@@ -30,7 +29,6 @@ class CoursesAdapter(context: Context, items: List<Courses>) : ArrayAdapter<Cour
         val courseCH = currView!!.findViewById<TextView>(R.id.course_ch)
         val courseMenu = currView!!.findViewById<ImageView>(R.id.image_menu)
 
-
         courseName.text = item!!.name
         courseCH.text = "${item.ch}ch"
 
@@ -39,12 +37,12 @@ class CoursesAdapter(context: Context, items: List<Courses>) : ArrayAdapter<Cour
             popup.inflate(R.menu.courselist_menu)
             popup.setOnMenuItemClickListener { menuItem ->
                 when (menuItem.itemId) {
-                    R.id.menu_option_1 -> {
-                        // Action for menu option 1
+                    R.id.menu_option_edit -> {
+                        fragment.BuildDialog("EDIT COURSE", item, false)
                         true
                     }
-                    R.id.menu_option_2 -> {
-                        // Action for menu option 2
+                    R.id.menu_option_delete -> {
+                        viewmodel.delete(item)
                         true
                     }
                     else -> false
