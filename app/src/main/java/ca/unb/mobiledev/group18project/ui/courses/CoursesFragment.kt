@@ -11,6 +11,7 @@ import android.widget.ListView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import ca.unb.mobiledev.group18project.R
 import ca.unb.mobiledev.group18project.databinding.FragmentCoursesBinding
 import ca.unb.mobiledev.group18project.entities.Courses
@@ -37,6 +38,12 @@ class CoursesFragment : Fragment(), View.OnClickListener {
         _binding = FragmentCoursesBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
+        val historyButton = binding.coursesHistory
+
+        historyButton.setOnClickListener{
+            findNavController().navigate(R.id.action_navigation_courses_to_navigation_courses_history)
+        }
+
         mListView = root.findViewById(R.id.courses_view)
 
         val addButton = root.findViewById<Button>(R.id.add_course)
@@ -44,6 +51,8 @@ class CoursesFragment : Fragment(), View.OnClickListener {
         addButton.setOnClickListener(this)
 
         SearchIncompleteCourses()
+
+
 
         return root
     }

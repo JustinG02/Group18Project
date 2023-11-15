@@ -9,7 +9,11 @@
         android:id="@+id/navigation_courses"
         android:name="ca.unb.mobiledev.group18project.ui.courses.CoursesFragment"
         android:label="@string/title_courses"
-        tools:layout="@layout/fragment_courses" />
+        tools:layout="@layout/fragment_courses">
+        <action
+            android:id="@+id/action_navigation_courses_to_navigation_courses_history"
+            app:destination="@id/navigation_courses_history" />
+    </fragment>
 
     <fragment
         android:id="@+id/navigation_deliverables"
@@ -22,4 +26,10 @@
         android:name="ca.unb.mobiledev.group18project.ui.settings.SettingsFragment"
         android:label="@string/title_settings"
         tools:layout="@layout/fragment_settings" />
+
+    <fragment
+        android:id="@+id/navigation_courses_history"
+        android:name="ca.unb.mobiledev.group18project.ui.courses.CoursesHistoryFragment"
+        android:label="@string/title_courses_history"
+        tools:layout="@layout/fragment_courses_history" />
 </navigation>
