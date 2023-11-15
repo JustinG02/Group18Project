@@ -13,5 +13,6 @@
     <string name="deliverables_button_add_deliverable">Add Deliverable</string>
     <string name="courses_button_add_course">Add Course</string>
     <string name="courses_button_courses_history">Courses History</string>
-    <string name="courses_gpa">GPA:</string>
+    <string name="courses_gpa">GPA: 0</string>
+    <string name="courses_cgpa">CGPA: 0</string>
 </resources>
