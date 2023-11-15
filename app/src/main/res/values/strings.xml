@@ -4,4 +4,13 @@
     <string name="title_deliverables">Deliverables</string>
     <string name="title_settings">Settings</string>
     <string name="title_courses_history">History</string>
+    <string name="setting_notifications">Notifications</string>
+    <string name="setting_gpascale">GPA Scale</string>
+    <string name="setting_grading_scheme">Grading Scheme</string>
+    <string name="setting_add_scheme">Add Scheme</string>
+    <string name="setting_allow_notifications">Grading Scheme</string>
+    <string name="setting_alerts_arrive">Alerts Arrive:</string>
+    <string name="deliverables_button_add_deliverable">Add Deliverable</string>
+    <string name="courses_button_add_course">Add Course</string>
+    <string name="courses_button_courses_history">Courses History</string>
 </resources>

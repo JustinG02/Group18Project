@@ -24,7 +24,7 @@
         android:id="@+id/add_deliverables"
         android:layout_width="365dp"
         android:layout_height="60dp"
-        android:text="Add Deliverable"
+        android:text="@string/deliverables_button_add_deliverable"
         app:icon="@drawable/baseline_add_24"
         app:iconGravity="textStart"
         app:layout_constraintBottom_toBottomOf="parent"
