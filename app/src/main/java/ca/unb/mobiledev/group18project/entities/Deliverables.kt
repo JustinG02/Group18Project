@@ -14,9 +14,5 @@ class Deliverables {
     @PrimaryKey(autoGenerate = true)
     var delivID : Int = 0
     var courseID : Int = 0
-    var name: String? = null
-    var weight : Float = 0.0f
-    var grade : Float = 0.0f
-    var isComplete : Boolean = false
-    var dueDate : java.util.Date = Calendar.getInstance().time
+    var name: String = ""
 }

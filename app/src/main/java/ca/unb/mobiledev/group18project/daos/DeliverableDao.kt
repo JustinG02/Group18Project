@@ -9,9 +9,9 @@ import ca.unb.mobiledev.group18project.entities.Deliverables
 
 @Dao
 interface DeliverableDao {
-    @Query("SELECT * from deliverables_table ORDER BY delivID ASC")
-    fun listAllDeliverables(): LiveData<List<Deliverables>>
-
-    @Insert(onConflict = OnConflictStrategy.IGNORE)
-    fun insertItem(deliverable: Deliverables)
+//    @Query("SELECT * from deliverables_table ORDER BY delivID ASC")
+//    fun listAllDeliverables(): List<Deliverables>
+//
+//    @Insert(onConflict = OnConflictStrategy.IGNORE)
+//    fun insertDeliverable(deliverable: Deliverables)
 }

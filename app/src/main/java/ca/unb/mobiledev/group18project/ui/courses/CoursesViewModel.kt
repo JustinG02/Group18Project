@@ -1,12 +1,29 @@
 package ca.unb.mobiledev.group18project.ui.courses
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
+import android.app.Application
+import androidx.lifecycle.AndroidViewModel
+import ca.unb.mobiledev.group18project.entities.Courses
+import ca.unb.mobiledev.group18project.repository.CourseRepository
 
-class CoursesViewModel : ViewModel(){
-    private val _text = MutableLiveData<String>().apply {
-        value = "This is the Courses Section"
+class CoursesViewModel(application: Application) : AndroidViewModel(application){
+
+    private val courseRepository: CourseRepository = CourseRepository(application)
+
+    // Insert a new record
+    fun insert(name: String?, num: Int) {
+        courseRepository.insertRecord(name, num)
     }
-    val text: LiveData<String> = _text
+
+    // Remove an existing record
+    fun getAllCourses(): List<Courses>? {
+        return courseRepository.getAllRecords()
+    }
+
+    fun getAllIncompleteCourses(): List<Courses>? {
+        return courseRepository.getAllIncompleteRecords()
+    }
+
+    fun getAllCompleteCourses(): List<Courses>? {
+        return courseRepository.getAllCompletedRecords()
+    }
 }

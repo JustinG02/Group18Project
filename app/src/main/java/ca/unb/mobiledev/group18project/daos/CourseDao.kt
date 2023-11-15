@@ -11,11 +11,17 @@ import ca.unb.mobiledev.group18project.entities.Courses
 interface CourseDao {
 
     @Query("SELECT * from courses_table ORDER BY id ASC")
-    fun listAllCourses(): LiveData<List<Courses>>
+    fun listAllCourses(): List<Courses>
+
+    @Query("SELECT * from courses_table ORDER BY id ASC")
+    fun listAllIncompleteCourses(): List<Courses>
+
+    @Query("SELECT * from courses_table ORDER BY id ASC")
+    fun listAllCompletedCourses(): List<Courses>
 
     @Query("SELECT * from courses_table WHERE name = :name ORDER BY id ASC")
     fun findCourseByName(name: String): List<Courses>
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
-    fun insertItem(course: Courses)
+    fun insertCourse(course: Courses)
 }
