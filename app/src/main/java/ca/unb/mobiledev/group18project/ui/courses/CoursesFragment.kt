@@ -10,11 +10,10 @@ import android.widget.EditText
 import android.widget.ListView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import ca.unb.mobiledev.group18project.R
 import ca.unb.mobiledev.group18project.databinding.FragmentCoursesBinding
-import ca.unb.mobiledev.group18project.entities.Courses
+import ca.unb.mobiledev.group18project.entities.Course
 
 class CoursesFragment : Fragment(), View.OnClickListener {
 
@@ -63,7 +62,7 @@ class CoursesFragment : Fragment(), View.OnClickListener {
         }
     }
 
-    fun BuildDialog(title: String, course: Courses?, new: Boolean) {
+    fun BuildDialog(title: String, course: Course?, new: Boolean) {
         val builder: AlertDialog.Builder = AlertDialog.Builder(requireContext())
         val inflater = requireActivity().layoutInflater
         val dialogView = inflater.inflate(R.layout.dialog_add_course, null)
@@ -98,7 +97,7 @@ class CoursesFragment : Fragment(), View.OnClickListener {
     }
 
     fun SearchIncompleteCourses() {
-        val results: List<Courses>? = mCourseViewModel.getAllIncompleteCourses()
+        val results: List<Course>? = mCourseViewModel.getAllIncompleteCourses()
 
         if (results!!.isEmpty()) {
             mListView.adapter = null

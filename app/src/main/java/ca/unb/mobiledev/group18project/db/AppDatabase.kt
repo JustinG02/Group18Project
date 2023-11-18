@@ -6,7 +6,7 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import ca.unb.mobiledev.group18project.daos.CourseDao
 import ca.unb.mobiledev.group18project.daos.DeliverableDao
-import ca.unb.mobiledev.group18project.entities.Courses
+import ca.unb.mobiledev.group18project.entities.Course
 import kotlin.jvm.Volatile
 import java.util.concurrent.ExecutorService
 import java.util.concurrent.Executors
@@ -14,7 +14,7 @@ import java.util.concurrent.Executors
 /**
  * Database layer in top of the SQLite database
  */
-@Database(entities = [Courses::class], version = 1, exportSchema = false)
+@Database(entities = [Course::class], version = 1, exportSchema = false)
 abstract class AppDatabase : RoomDatabase() {
     abstract fun courseDao(): CourseDao?
     abstract fun deliverableDao(): DeliverableDao?

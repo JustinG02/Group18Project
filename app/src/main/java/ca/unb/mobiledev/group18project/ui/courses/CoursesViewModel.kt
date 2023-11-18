@@ -3,38 +3,38 @@ package ca.unb.mobiledev.group18project.ui.courses
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
-import ca.unb.mobiledev.group18project.daos.CourseDao
-import ca.unb.mobiledev.group18project.entities.Courses
+import ca.unb.mobiledev.group18project.entities.Course
 import ca.unb.mobiledev.group18project.repository.CourseRepository
+import java.util.Date
 
 class CoursesViewModel(application: Application) : AndroidViewModel(application){
 
     private val courseRepository: CourseRepository = CourseRepository(application)
 
-    val allCourses: LiveData<List<Courses>> = courseRepository.getAllRecords()
+    val allCourses: LiveData<List<Course>> = courseRepository.getAllRecords()
 
     // Insert a new record
-    fun insert(name: String?, num: Int) {
-        courseRepository.insertRecord(name, num)
+    fun insert(name: String?, ch: Int, startDate: Date, endDate: Date, info: String) {
+        courseRepository.insertRecord(name, ch, startDate, endDate, info)
     }
 
-    fun deleteByName(name: String) {
+    /*fun deleteByName(name: String) {
         courseRepository.deleteRecordByName(name)
-    }
+    }*/
 
-    fun delete(course: Courses) {
+    fun delete(course: Course) {
         courseRepository.deleteRecord(course)
     }
 
-    fun update(course: Courses) {
+    fun update(course: Course) {
         courseRepository.updateRecord(course)
     }
 
-    fun getAllIncompleteCourses(): List<Courses>? {
+    fun getAllIncompleteCourses(): LiveData<List<Course>>? {
         return courseRepository.getAllIncompleteRecords()
     }
 
-    fun getAllCompleteCourses(): List<Courses>? {
+    fun getAllCompleteCourses(): LiveData<List<Course>>? {
         return courseRepository.getAllCompletedRecords()
     }
 }

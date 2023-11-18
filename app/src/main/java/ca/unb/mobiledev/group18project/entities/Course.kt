@@ -2,11 +2,23 @@ package ca.unb.mobiledev.group18project.entities
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import java.util.Date
 
 @Entity(tableName = "courses_table")
-class Courses {
+class Course {
     @PrimaryKey(autoGenerate = true)
-    var id = 0
+    var courseID = 0
+
     var name: String? = null
+
     var ch : Int = 0
+
+    var startDate: Date? = null
+
+    var endDate: Date? = null
+
+    var completed: Boolean = false
+
+    var info: String = ""
+
 }

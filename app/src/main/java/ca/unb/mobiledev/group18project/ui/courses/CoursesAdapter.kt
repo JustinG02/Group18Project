@@ -9,10 +9,10 @@ import android.widget.ImageView
 import android.widget.PopupMenu
 import android.widget.TextView
 import ca.unb.mobiledev.group18project.R
-import ca.unb.mobiledev.group18project.entities.Courses
+import ca.unb.mobiledev.group18project.entities.Course
 
 
-class CoursesAdapter(context: Context, items: List<Courses>, private val viewmodel: CoursesViewModel, private val fragment: CoursesFragment) : ArrayAdapter<Courses>(
+class CoursesAdapter(context: Context, items: List<Course>, private val viewmodel: CoursesViewModel, private val fragment: CoursesFragment) : ArrayAdapter<Course>(
     context, 0, items) {
     override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
         // Get the data item for this position
