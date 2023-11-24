@@ -7,6 +7,7 @@ import androidx.room.RoomDatabase
 import ca.unb.mobiledev.group18project.daos.CourseDao
 import ca.unb.mobiledev.group18project.daos.DeliverableDao
 import ca.unb.mobiledev.group18project.entities.Course
+import ca.unb.mobiledev.group18project.entities.Deliverable
 import kotlin.jvm.Volatile
 import java.util.concurrent.ExecutorService
 import java.util.concurrent.Executors
@@ -14,7 +15,7 @@ import java.util.concurrent.Executors
 /**
  * Database layer in top of the SQLite database
  */
-@Database(entities = [Course::class], version = 1, exportSchema = false)
+@Database(entities = [Course::class, Deliverable::class], version = 3, exportSchema = false)
 abstract class AppDatabase : RoomDatabase() {
     abstract fun courseDao(): CourseDao?
     abstract fun deliverableDao(): DeliverableDao?
@@ -34,8 +35,12 @@ abstract class AppDatabase : RoomDatabase() {
                 return tempInstance
             }
             synchronized(this) {
-                val instance = Room.databaseBuilder(context.applicationContext,
-                    AppDatabase::class.java, "app_database")
+//                val instance = Room.databaseBuilder(context.applicationContext,
+//                    AppDatabase::class.java, "app_database")
+//                    .build()
+
+                val instance = Room.databaseBuilder(context, AppDatabase::class.java, "app_database")
+                    .fallbackToDestructiveMigration()
                     .build()
 
                 INSTANCE = instance

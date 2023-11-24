@@ -14,8 +14,8 @@ class CoursesViewModel(application: Application) : AndroidViewModel(application)
     val allCourses: LiveData<List<Course>> = courseRepository.getAllRecords()
 
     // Insert a new record
-    fun insert(name: String?, ch: Int, startDate: Date, endDate: Date, info: String) {
-        courseRepository.insertRecord(name, ch, startDate, endDate, info)
+    fun insert(name: String?, ch: Int) { //, startDate: Date, endDate: Date, info: String
+        courseRepository.insertRecord(name, ch) //, startDate, endDate, info
     }
 
     /*fun deleteByName(name: String) {
@@ -30,11 +30,11 @@ class CoursesViewModel(application: Application) : AndroidViewModel(application)
         courseRepository.updateRecord(course)
     }
 
-    fun getAllIncompleteCourses(): LiveData<List<Course>>? {
+    fun getAllIncompleteCourses(): LiveData<List<Course>> {
         return courseRepository.getAllIncompleteRecords()
     }
 
-    fun getAllCompleteCourses(): LiveData<List<Course>>? {
+    fun getAllCompleteCourses(): LiveData<List<Course>> {
         return courseRepository.getAllCompletedRecords()
     }
 }

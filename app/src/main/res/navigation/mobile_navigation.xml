@@ -36,13 +36,13 @@
 
     <fragment
         android:id="@+id/navigation_courses_history"
-        android:name="ca.unb.mobiledev.group18project.ui.courses.CoursesHistoryFragment"
+        android:name="ca.unb.mobiledev.group18project.ui.courseshistory.CoursesHistoryFragment"
         android:label="@string/title_courses_history"
         tools:layout="@layout/fragment_courses_history" />
 
     <fragment
         android:id="@+id/navigation_single_course"
-        android:name="ca.unb.mobiledev.group18project.ui.courses.SingleCourseFragment"
+        android:name="ca.unb.mobiledev.group18project.ui.singlecourse.SingleCourseFragment"
         android:label="@string/title_single_course"
         tools:layout="@layout/fragment_single_course" />
 </navigation>

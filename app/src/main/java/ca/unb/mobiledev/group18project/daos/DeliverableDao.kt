@@ -13,7 +13,7 @@ import ca.unb.mobiledev.group18project.entities.Deliverable
 interface DeliverableDao {
     @Query("SELECT * from deliverables_table ORDER BY delivID ASC")
     fun listAllDeliverables(): LiveData<List<Deliverable>>
-    @Query("SELECT * from deliverables_table WHERE completed = 'false' ORDER BY dueDate ASC ")
+    @Query("SELECT * from deliverables_table WHERE completed = 'false' ") //ORDER BY dueDate ASC 
     fun listAllIncompleteDeliverables(): LiveData<List<Deliverable>>
 
     @Query("SELECT * from deliverables_table WHERE courseID = :courseID ORDER BY name ASC ")

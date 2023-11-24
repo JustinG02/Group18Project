@@ -2,10 +2,11 @@ package ca.unb.mobiledev.group18project.entities
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import java.io.Serializable
 import java.util.Date
 
 @Entity(tableName = "courses_table")
-class Course {
+class Course : Serializable {
     @PrimaryKey(autoGenerate = true)
     var courseID = 0
 
@@ -13,9 +14,9 @@ class Course {
 
     var ch : Int = 0
 
-    var startDate: Date? = null
+//    var startDate: Date? = null
 
-    var endDate: Date? = null
+//    var endDate: Date? = null
 
     var completed: Boolean = false
 

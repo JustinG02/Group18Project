@@ -13,14 +13,14 @@ import java.util.concurrent.Executors
 class CourseRepository(application: Application) {
     private val courseDao: CourseDao? = getDatabase(application).courseDao()
 
-    fun insertRecord(name: String?, ch: Int, startDate: Date, endDate: Date, info: String) {
+    fun insertRecord(name: String?, ch: Int) { //, startDate: Date, endDate: Date, info: String
         val course = Course()
         course.name = name
         course.ch = ch
-        course.startDate = startDate
-        course.endDate = endDate
+//        course.startDate = startDate
+//        course.endDate = endDate
         course.completed = false
-        course.info = info
+//        course.info = info
         AppDatabase.databaseWriterExecutor.execute { courseDao!!.insertCourse(course) }
     }
 

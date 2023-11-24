@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.courses.CoursesHistoryFragment">
+    tools:context=".ui.courseshistory.CoursesHistoryFragment">
 
     <TextView
         android:id="@+id/cgpa"

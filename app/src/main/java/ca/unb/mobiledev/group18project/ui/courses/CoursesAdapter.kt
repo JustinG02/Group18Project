@@ -1,6 +1,7 @@
 package ca.unb.mobiledev.group18project.ui.courses
 
 import android.content.Context
+import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -8,8 +9,10 @@ import android.widget.ArrayAdapter
 import android.widget.ImageView
 import android.widget.PopupMenu
 import android.widget.TextView
+import androidx.lifecycle.LiveData
 import ca.unb.mobiledev.group18project.R
 import ca.unb.mobiledev.group18project.entities.Course
+import ca.unb.mobiledev.group18project.ui.singlecourse.SingleCourseFragment
 
 
 class CoursesAdapter(context: Context, items: List<Course>, private val viewmodel: CoursesViewModel, private val fragment: CoursesFragment) : ArrayAdapter<Course>(
@@ -31,6 +34,22 @@ class CoursesAdapter(context: Context, items: List<Course>, private val viewmode
 
         courseName.text = item!!.name
         courseCH.text = "${item.ch}ch"
+
+        currView.setOnClickListener {
+            // Navigate to the SingleCourseFragment
+            val singleCourseFragment = SingleCourseFragment()
+
+            // Pass the clicked course to the fragment using a Bundle
+            val bundle = Bundle()
+            bundle.putSerializable("course", item)
+            singleCourseFragment.arguments = bundle
+
+            // Perform the fragment transaction
+            fragment.parentFragmentManager.beginTransaction()
+                .replace(R.id.nav_host_fragment_activity_main, singleCourseFragment)
+                .addToBackStack(null)
+                .commit()
+        }
 
         courseMenu.setOnClickListener {
             val popup = PopupMenu(context, courseMenu)

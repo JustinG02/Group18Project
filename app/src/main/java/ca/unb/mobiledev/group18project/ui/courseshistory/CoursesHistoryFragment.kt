@@ -1,4 +1,4 @@
-package ca.unb.mobiledev.group18project.ui.courses
+package ca.unb.mobiledev.group18project.ui.courseshistory
 
 import android.os.Bundle
 import android.view.LayoutInflater

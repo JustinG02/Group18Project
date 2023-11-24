@@ -3,6 +3,7 @@ package ca.unb.mobiledev.group18project.entities
 import androidx.room.Entity
 import androidx.room.ForeignKey
 import androidx.room.PrimaryKey
+import java.sql.Time
 import java.util.Date
 
 @Entity(tableName = "deliverables_table",
@@ -18,7 +19,9 @@ class Deliverable {
 
     var name: String? = ""
 
-    var dueDate: Date? = null
+//    var dueDate: Date? = null
+
+//    var dueTime: Time? = null
 
     var completed: Boolean = false
 

@@ -10,6 +10,7 @@ import android.widget.EditText
 import android.widget.ListView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModelProvider
 import ca.unb.mobiledev.group18project.R
 import ca.unb.mobiledev.group18project.databinding.FragmentCoursesBinding
@@ -97,12 +98,8 @@ class CoursesFragment : Fragment(), View.OnClickListener {
     }
 
     fun SearchIncompleteCourses() {
-        val results: List<Course>? = mCourseViewModel.getAllIncompleteCourses()
-
-        if (results!!.isEmpty()) {
-            mListView.adapter = null
-        } else {
-            val adapter = CoursesAdapter(binding.root.context, results, mCourseViewModel, this)
+        mCourseViewModel.allCourses.observe(viewLifecycleOwner) { courses ->
+            val adapter = CoursesAdapter(requireContext(), courses, mCourseViewModel, this)
             mListView.adapter = adapter
         }
     }

@@ -18,7 +18,7 @@ interface CourseDao {
     @Query("SELECT * from courses_table WHERE completed = 'false' ORDER BY name ASC ")
     fun listAllIncompleteCourses(): LiveData<List<Course>>
 
-    @Query("SELECT * from courses_table WHERE completed = 'true' ORDER BY endDate ASC")
+    @Query("SELECT * from courses_table WHERE completed = 'true' ") //ORDER BY endDate ASC
     fun listAllCompletedCourses(): LiveData<List<Course>>
 
     //No need for this?
