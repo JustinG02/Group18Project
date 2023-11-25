@@ -18,11 +18,11 @@ class DeliverablesViewModel(application: Application) : AndroidViewModel(applica
 
     private val deliverableRepository: DeliverableRepository = DeliverableRepository(application)
 
-    val allCourses: LiveData<List<Deliverable>> = deliverableRepository.getAllRecords()
+    val allDeliverables: LiveData<List<Deliverable>> = deliverableRepository.getAllRecords()
 
     // Insert a new record
-    fun insert(name: String?, courseID: Int) { //, dueDate: Date, weight: Int, info: String
-        deliverableRepository.insertRecord(name, courseID) //, dueDate, weight, info
+    fun insert(name: String?, courseID: Int, dueDate: String?, dueTime: String?, weight: Int, info: String) {
+        deliverableRepository.insertRecord(name, courseID, dueDate, dueTime, weight, info) //, dueDate, weight, info
     }
 
     fun delete(deliverable: Deliverable) {
@@ -33,11 +33,12 @@ class DeliverablesViewModel(application: Application) : AndroidViewModel(applica
         deliverableRepository.updateRecord(deliverable)
     }
 
-    fun getAllIncompleteCourses(): LiveData<List<Deliverable>>? {
+    fun getAllIncompleteDeliverables(): LiveData<List<Deliverable>> {
         return deliverableRepository.getAllIncompleteRecords()
     }
 
-    fun getAllDeliverablesOfACourse(courseID: Int): LiveData<List<Deliverable>>? {
+    fun getAllDeliverablesOfACourse(courseID: Int): LiveData<List<Deliverable>> {
         return deliverableRepository.getAllDeliverablesOfACourse(courseID)
     }
+
 }

@@ -35,7 +35,7 @@
 
     <!-- deliverable -->
     <TextView
-        android:id="@+id/deliverable_worth"
+        android:id="@+id/deliverable_weight"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/deliverable_date"

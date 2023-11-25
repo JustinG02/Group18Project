@@ -19,9 +19,9 @@ class Deliverable {
 
     var name: String? = ""
 
-//    var dueDate: Date? = null
+    var dueDate: String? = null  // Stored as "YYYY-MM-DD"
 
-//    var dueTime: Time? = null
+    var dueTime: String? = null  // Stored as "HH:MM"
 
     var completed: Boolean = false
 

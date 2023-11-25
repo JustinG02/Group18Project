@@ -1,53 +1,83 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:padding="16dp">
 
     <TextView
         android:id="@+id/textViewCourseName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="54dp"
         android:text="Course Name:"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toTopOf="@+id/editTextCourseName"
-        android:layout_marginBottom="2dp"/>
+        app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
         android:id="@+id/editTextCourseName"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginTop="27dp"
         android:hint="Enter course name"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textViewCourseName"
-        app:layout_constraintBottom_toTopOf="@+id/textViewCourseCH"
-        android:layout_marginTop="2dp"
-        android:layout_marginBottom="8dp"/>
+        app:layout_constraintStart_toStartOf="@+id/textViewCourseName"
+        app:layout_constraintTop_toBottomOf="@+id/textViewCourseName" />
 
     <TextView
         android:id="@+id/textViewCourseCH"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginBottom="27dp"
         android:text="Credit Hours:"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextCourseName"
         app:layout_constraintBottom_toTopOf="@+id/editTextCourseCH"
-        android:layout_marginTop="8dp"
-        android:layout_marginBottom="2dp"/>
+        app:layout_constraintStart_toStartOf="parent" />
 
     <EditText
         android:id="@+id/editTextCourseCH"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginTop="229dp"
         android:hint="Enter course credit hours"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textViewCourseCH"
+        app:layout_constraintStart_toStartOf="@+id/textViewCourseCH"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/startDate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="36dp"
+        android:layout_marginBottom="16dp"
+        android:text="Start Date"
+        app:layout_constraintBottom_toTopOf="@+id/infoTextView"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/endDate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        android:layout_marginEnd="24dp"
+        android:text="End Date"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editTextCourseCH" />
+
+    <EditText
+        android:id="@+id/infoTextView"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="16dp"
+        android:hint="Optional Course Information"
         app:layout_constraintBottom_toBottomOf="parent"
-        android:layout_marginTop="2dp"
-        android:layout_marginBottom="8dp"/>
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/endDate" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

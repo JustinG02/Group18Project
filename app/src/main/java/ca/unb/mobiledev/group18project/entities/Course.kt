@@ -14,9 +14,9 @@ class Course : Serializable {
 
     var ch : Int = 0
 
-//    var startDate: Date? = null
+    var startDate: String? = null  // Stored as "YYYY-MM-DD"
 
-//    var endDate: Date? = null
+    var endDate: String? = null  // Stored as "YYYY-MM-DD"
 
     var completed: Boolean = false
 

@@ -1,7 +1,10 @@
 package ca.unb.mobiledev.group18project.ui.courses
 
 import android.app.AlertDialog
+import android.app.DatePickerDialog
+import android.app.TimePickerDialog
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -16,8 +19,11 @@ import androidx.navigation.fragment.findNavController
 import ca.unb.mobiledev.group18project.R
 import ca.unb.mobiledev.group18project.databinding.FragmentCoursesBinding
 import ca.unb.mobiledev.group18project.entities.Course
+import java.text.SimpleDateFormat
+import java.util.Calendar
+import java.util.Locale
 
-class CoursesFragment : Fragment(), View.OnClickListener {
+open class CoursesFragment : Fragment(), View.OnClickListener {
 
     private var _binding: FragmentCoursesBinding? = null
 
@@ -50,7 +56,14 @@ class CoursesFragment : Fragment(), View.OnClickListener {
 
         addButton.setOnClickListener(this)
 
-        mCourseViewModel.allCourses.observe(viewLifecycleOwner) {
+        //Temporary Placed here to update past dates
+        val calendar = Calendar.getInstance()
+        val dateFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
+        val currentDate = dateFormat.format(calendar.time)
+
+        mCourseViewModel.updatePastDates(currentDate)
+
+        mCourseViewModel.getAllIncompleteCourses().observe(viewLifecycleOwner) {
             SearchIncompleteCourses()
         }
 
@@ -76,25 +89,78 @@ class CoursesFragment : Fragment(), View.OnClickListener {
         val dialogView = inflater.inflate(R.layout.dialog_add_course, null)
         val editTextCourse = dialogView.findViewById<EditText>(R.id.editTextCourseName)
         val chTextCourse = dialogView.findViewById<EditText>(R.id.editTextCourseCH)
+        val startDateButton = dialogView.findViewById<Button>(R.id.startDate)
+        val endDateButton = dialogView.findViewById<Button>(R.id.endDate)
+        val infoText = dialogView.findViewById<EditText>(R.id.infoTextView)
+
+        var selectedStartDate = ""
+        var selectedEndDate = ""
+
+        startDateButton.setOnClickListener {
+            val calendar = Calendar.getInstance()
+            val datePickerDialog = DatePickerDialog(requireContext(), { _, year, month, dayOfMonth ->
+                // Note: Month is 0-based, so add 1 for display
+                selectedStartDate = String.format("%04d-%02d-%02d", year, month + 1, dayOfMonth)
+                startDateButton.text = selectedStartDate
+            }, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH))
+
+            datePickerDialog.show()
+        }
+
+        /*pickTimeButton.setOnClickListener {
+            val calendar = Calendar.getInstance()
+            val timePickerDialog = TimePickerDialog(requireContext(), { _, hourOfDay, minute ->
+                selectedTime = String.format("%02d:%02d", hourOfDay, minute)
+            }, calendar.get(Calendar.HOUR_OF_DAY), calendar.get(Calendar.MINUTE), true)
+
+            timePickerDialog.show()
+        }*/
+
+        endDateButton.setOnClickListener {
+            val calendar = Calendar.getInstance()
+            val datePickerDialog = DatePickerDialog(requireContext(), { _, year, month, dayOfMonth ->
+                // Note: Month is 0-based, so add 1 for display
+                selectedEndDate = String.format("%04d-%02d-%02d", year, month + 1, dayOfMonth)
+                endDateButton.text = selectedEndDate
+            }, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH))
+
+            datePickerDialog.show()
+        }
+
+
+        if(!new){
+            // Set existing values
+            editTextCourse.setText(course?.name)
+            chTextCourse.setText(course?.ch.toString())
+            selectedStartDate = course?.startDate.toString() // Format: "YYYY-MM-DD"
+            startDateButton.text = selectedStartDate
+            selectedEndDate = course?.endDate.toString() // Format: "YYYY-MM-DD"
+            endDateButton.text = selectedEndDate
+            infoText.setText(course?.info.toString())
+        }
 
         builder.setView(dialogView)
             .setTitle(title)
             .setPositiveButton("Submit") { _, _ ->
                 val name = editTextCourse.text.toString()
                 val ch = chTextCourse.text.toString()
+                val info = infoText.text.toString()
 
-                if (name == "" || ch.toIntOrNull() == null) {
+                if (name == "" || ch.toIntOrNull() == null || selectedStartDate == "" || selectedEndDate == "") {
                     Toast.makeText(binding.root.context, "Data entered is incomplete/incorrect format. Data has not been saved.", Toast.LENGTH_SHORT).show()
                     return@setPositiveButton
                 }
 
                 if (new) {
                     Toast.makeText(binding.root.context, "New Data Entry", Toast.LENGTH_SHORT).show()
-                    mCourseViewModel.insert(name, ch.toInt())
+                    mCourseViewModel.insert(name, ch.toInt(), selectedStartDate, selectedEndDate, info)
                 } else {
                     Toast.makeText(binding.root.context, "Updated Data Entry", Toast.LENGTH_SHORT).show()
                     course?.name = name
                     course?.ch = ch.toInt()
+                    course?.startDate = selectedStartDate
+                    course?.endDate = selectedEndDate
+                    course?.info = info
                     mCourseViewModel.update(course!!)
                 }
             }
@@ -105,7 +171,7 @@ class CoursesFragment : Fragment(), View.OnClickListener {
     }
 
     fun SearchIncompleteCourses() {
-        mCourseViewModel.allCourses.observe(viewLifecycleOwner) { courses ->
+        mCourseViewModel.getAllIncompleteCourses().observe(viewLifecycleOwner) { courses ->
             val adapter = CoursesAdapter(requireContext(), courses, mCourseViewModel, this)
             mListView.adapter = adapter
         }

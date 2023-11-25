@@ -36,7 +36,7 @@
 
     <fragment
         android:id="@+id/navigation_courses_history"
-        android:name="ca.unb.mobiledev.group18project.ui.courseshistory.CoursesHistoryFragment"
+        android:name="ca.unb.mobiledev.group18project.ui.courses.CoursesHistoryFragment"
         android:label="@string/title_courses_history"
         tools:layout="@layout/fragment_courses_history" />
 

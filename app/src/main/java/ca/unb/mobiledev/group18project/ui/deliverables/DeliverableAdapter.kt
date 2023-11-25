@@ -32,7 +32,7 @@ class DeliverableAdapter(context: Context, items: List<Deliverable>, private val
         val deliverableCourse= currView!!.findViewById<TextView>(R.id.deliverable_course)
         val deliverableName = currView!!.findViewById<TextView>(R.id.deliverable_name)
         val deliverableDate = currView!!.findViewById<TextView>(R.id.deliverable_date)
-        val deliverableWorth = currView!!.findViewById<TextView>(R.id.deliverable_worth)
+        val deliverableWeight = currView!!.findViewById<TextView>(R.id.deliverable_weight)
 
 
         val DeliverableMenu = currView!!.findViewById<ImageView>(R.id.image_menu)

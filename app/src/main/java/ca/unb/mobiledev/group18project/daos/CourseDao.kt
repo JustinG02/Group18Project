@@ -15,10 +15,10 @@ interface CourseDao {
     @Query("SELECT * from courses_table ORDER BY courseID ASC")
     fun listAllCourses(): LiveData<List<Course>>
 
-    @Query("SELECT * from courses_table WHERE completed = 'false' ORDER BY name ASC ")
+    @Query("SELECT * from courses_table WHERE completed = '0' ORDER BY name ASC ")
     fun listAllIncompleteCourses(): LiveData<List<Course>>
 
-    @Query("SELECT * from courses_table WHERE completed = 'true' ") //ORDER BY endDate ASC
+    @Query("SELECT * from courses_table WHERE completed = '1' ORDER BY endDate DESC")
     fun listAllCompletedCourses(): LiveData<List<Course>>
 
     //No need for this?
@@ -37,4 +37,7 @@ interface CourseDao {
 
     @Update
     fun updateCourse(course: Course)
+
+    @Query("UPDATE courses_table SET completed = '1' WHERE endDate < :currentDate")
+    fun updatePastDates(currentDate: String)
 }
