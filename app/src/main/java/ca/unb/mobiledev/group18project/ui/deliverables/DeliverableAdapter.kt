@@ -27,6 +27,7 @@ class DeliverableAdapter(context: Context, items: List<Deliverable>, private val
             currView = LayoutInflater.from(context).inflate(R.layout.deliverablelist_layout, parent, false)
         }
 
+
         // Lookup view for data population
         val deliverableCourse= currView!!.findViewById<TextView>(R.id.deliverable_course)
         val deliverableName = currView!!.findViewById<TextView>(R.id.deliverable_name)

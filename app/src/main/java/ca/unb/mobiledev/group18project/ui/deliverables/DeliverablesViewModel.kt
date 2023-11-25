@@ -15,6 +15,7 @@ class DeliverablesViewModel(application: Application) : AndroidViewModel(applica
     }
     val text: LiveData<String> = _text
 
+
     private val deliverableRepository: DeliverableRepository = DeliverableRepository(application)
 
     val allCourses: LiveData<List<Deliverable>> = deliverableRepository.getAllRecords()

@@ -22,6 +22,7 @@ class CoursesViewModel(application: Application) : AndroidViewModel(application)
         courseRepository.deleteRecordByName(name)
     }*/
 
+
     fun delete(course: Course) {
         courseRepository.deleteRecord(course)
     }
