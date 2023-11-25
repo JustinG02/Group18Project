@@ -1,6 +1,7 @@
 package ca.unb.mobiledev.group18project
 
 import android.os.Bundle
+import android.view.View
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.findNavController
@@ -39,5 +40,13 @@ class MainActivity : AppCompatActivity() {
 
     override fun onSupportNavigateUp(): Boolean {
         return findNavController(R.id.nav_host_fragment_activity_main).navigateUp()
+    }
+
+    fun hideBottomNav() {
+        binding.navView.visibility = View.GONE
+    }
+
+    fun showBottomNav() {
+        binding.navView.visibility = View.VISIBLE
     }
 }

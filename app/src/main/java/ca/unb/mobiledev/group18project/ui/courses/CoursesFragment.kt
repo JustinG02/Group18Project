@@ -12,6 +12,7 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import ca.unb.mobiledev.group18project.R
 import ca.unb.mobiledev.group18project.databinding.FragmentCoursesBinding
 import ca.unb.mobiledev.group18project.entities.Course
@@ -36,6 +37,12 @@ class CoursesFragment : Fragment(), View.OnClickListener {
 
         _binding = FragmentCoursesBinding.inflate(inflater, container, false)
         val root: View = binding.root
+
+        val historyButton = binding.coursesHistory
+
+        historyButton.setOnClickListener{
+            findNavController().navigate(R.id.action_navigation_courses_to_navigation_courses_history)
+        }
 
         mListView = root.findViewById(R.id.courses_view)
 

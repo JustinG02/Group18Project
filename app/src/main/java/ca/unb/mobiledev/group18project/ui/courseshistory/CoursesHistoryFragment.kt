@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import ca.unb.mobiledev.group18project.MainActivity
 import ca.unb.mobiledev.group18project.databinding.FragmentCoursesHistoryBinding
 
 class CoursesHistoryFragment : Fragment() {
@@ -27,6 +28,16 @@ class CoursesHistoryFragment : Fragment() {
         return root
     }
 
+    override fun onResume() {
+        super.onResume()
+        // Hide the action bar
+        (activity as? MainActivity)?.hideBottomNav()
+    }
+
+    override fun onPause() {
+        super.onPause()
+        (activity as? MainActivity)?.showBottomNav()
+    }
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null

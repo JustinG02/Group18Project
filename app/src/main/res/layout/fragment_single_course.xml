@@ -14,6 +14,7 @@
         android:text="@string/deliverables_button_add_deliverable"
         app:icon="@drawable/baseline_add_24"
         app:iconGravity="textStart"
+        app:layout_constraintBottom_toTopOf="@+id/percentComplete"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -26,18 +27,22 @@
         android:text="@string/course_current_grade"
         android:textAlignment="viewStart"
         android:textSize="24sp"
+        app:layout_constraintBottom_toTopOf="@+id/runningGrade"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/percentComplete" />
+        app:layout_constraintVertical_bias="0.0" />
 
     <TextView
         android:id="@+id/runningGradePercentage"
         android:layout_width="57dp"
         android:layout_height="49dp"
+        android:layout_marginBottom="28dp"
         android:text="0%"
         android:textAlignment="viewStart"
         android:textSize="24sp"
-        app:layout_constraintStart_toEndOf="@+id/runningGrade"
-        app:layout_constraintTop_toBottomOf="@+id/currentGradePercentage" />
+        app:layout_constraintBottom_toTopOf="@+id/gradePredictions"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/runningGrade" />
 
     <TextView
         android:id="@+id/percentCompletePercentage"
@@ -47,9 +52,10 @@
         android:text="0%"
         android:textAlignment="viewStart"
         android:textSize="24sp"
-
-        app:layout_constraintStart_toEndOf="@+id/percentComplete"
-        app:layout_constraintTop_toBottomOf="@+id/add_deliverables" />
+        app:layout_constraintBottom_toTopOf="@+id/currentGradePercentage"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/percentComplete" />
 
     <TextView
         android:id="@+id/currentGradePercentage"
@@ -58,19 +64,23 @@
         android:text="0%"
         android:textAlignment="viewStart"
         android:textSize="24sp"
+        app:layout_constraintBottom_toTopOf="@+id/runningGradePercentage"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toEndOf="@+id/currentGrade"
-        app:layout_constraintTop_toBottomOf="@+id/percentCompletePercentage" />
+        app:layout_constraintVertical_bias="0.034" />
 
     <TextView
         android:id="@+id/runningGrade"
         android:layout_width="248dp"
         android:layout_height="49dp"
         android:layout_marginStart="40dp"
+        android:layout_marginBottom="28dp"
         android:text="@string/course_running_grade"
         android:textAlignment="viewStart"
         android:textSize="24sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/currentGrade" />
+        app:layout_constraintBottom_toTopOf="@+id/gradePredictions"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
         android:id="@+id/percentComplete"
@@ -81,19 +91,20 @@
         android:text="@string/course_percent_complete"
         android:textAlignment="viewStart"
         android:textSize="24sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/add_deliverables" />
+        app:layout_constraintBottom_toTopOf="@+id/currentGrade"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <Switch
         android:id="@+id/gradePredictions"
         android:layout_width="300dp"
         android:layout_height="55dp"
-        android:layout_marginStart="52dp"
-        android:layout_marginTop="28dp"
+        android:layout_marginBottom="28dp"
         android:text="@string/course_predictions"
         android:textSize="24sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/runningGrade" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.495"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <ListView
         android:id="@+id/deliverable_list"

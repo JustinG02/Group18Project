@@ -10,6 +10,7 @@ import android.widget.ImageView
 import android.widget.PopupMenu
 import android.widget.TextView
 import androidx.lifecycle.LiveData
+import androidx.navigation.fragment.findNavController
 import ca.unb.mobiledev.group18project.R
 import ca.unb.mobiledev.group18project.entities.Course
 import ca.unb.mobiledev.group18project.ui.singlecourse.SingleCourseFragment
@@ -44,11 +45,8 @@ class CoursesAdapter(context: Context, items: List<Course>, private val viewmode
             bundle.putSerializable("course", item)
             singleCourseFragment.arguments = bundle
 
-            // Perform the fragment transaction
-            fragment.parentFragmentManager.beginTransaction()
-                .replace(R.id.nav_host_fragment_activity_main, singleCourseFragment)
-                .addToBackStack(null)
-                .commit()
+            // Use findNavController to navigate to SingleCourseFragment with the bundle
+            fragment.findNavController().navigate(R.id.action_navigation_courses_to_navigation_single_course, bundle)
         }
 
         courseMenu.setOnClickListener {

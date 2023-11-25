@@ -10,7 +10,6 @@
         android:id="@+id/gpa"
         android:layout_width="108dp"
         android:layout_height="29dp"
-        android:layout_marginTop="27dp"
         android:alpha="6"
         android:background="@drawable/rounded_corner_gpa"
         android:text="@string/courses_gpa"
@@ -26,35 +25,32 @@
         android:id="@+id/add_course"
         android:layout_width="365dp"
         android:layout_height="60dp"
-        android:layout_marginTop="12dp"
+        android:layout_marginBottom="17dp"
         android:text="@string/courses_button_add_course"
         app:icon="@drawable/baseline_add_24"
         app:iconGravity="textStart"
+        app:layout_constraintBottom_toTopOf="@+id/courses_history"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/courses_view" />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <Button
         android:id="@+id/courses_history"
         android:layout_width="365dp"
         android:layout_height="60dp"
-        android:layout_marginTop="12dp"
+        android:layout_marginBottom="60dp"
         android:text="@string/courses_button_courses_history"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/add_course"
-        app:layout_constraintVertical_bias="0.051" />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <ListView
         android:id="@+id/courses_view"
         android:layout_width="409dp"
         android:layout_height="425dp"
-        android:layout_marginStart="1dp"
-        android:layout_marginTop="11dp"
-        android:layout_marginEnd="1dp"
+        android:layout_marginTop="12dp"
+        app:layout_constraintBottom_toTopOf="@+id/add_course"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/gpa" />
+        app:layout_constraintTop_toBottomOf="@+id/gpa"
+        app:layout_constraintVertical_bias="0.338" />
 </androidx.constraintlayout.widget.ConstraintLayout>

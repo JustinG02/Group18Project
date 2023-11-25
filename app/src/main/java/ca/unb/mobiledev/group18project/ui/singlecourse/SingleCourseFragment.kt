@@ -1,6 +1,5 @@
 package ca.unb.mobiledev.group18project.ui.singlecourse
 
-import android.R
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.MenuItem
@@ -10,7 +9,9 @@ import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
+import ca.unb.mobiledev.group18project.MainActivity
 import ca.unb.mobiledev.group18project.databinding.FragmentSingleCourseBinding
+import ca.unb.mobiledev.group18project.entities.Course
 
 
 class SingleCourseFragment : Fragment() {
@@ -32,16 +33,24 @@ class SingleCourseFragment : Fragment() {
         _binding = FragmentSingleCourseBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
-        actionBar = (activity as AppCompatActivity).supportActionBar!!
-        actionBar.setDisplayHomeAsUpEnabled(true)
+        arguments?.getSerializable("course")?.let { course ->
+            if (course is Course) { // Replace 'Course' with the actual type of your course object
+                (activity as? AppCompatActivity)?.supportActionBar?.title = course.name
+            }
+        }
 
         return root
     }
 
+    override fun onResume() {
+        super.onResume()
+        // Hide the action bar
+        (activity as? MainActivity)?.hideBottomNav()
+    }
+
     override fun onPause() {
         super.onPause()
-        val actionBar = (activity as AppCompatActivity).supportActionBar
-        actionBar?.setDisplayHomeAsUpEnabled(false)
+        (activity as? MainActivity)?.showBottomNav()
     }
 
     override fun onDestroyView() {
@@ -49,13 +58,4 @@ class SingleCourseFragment : Fragment() {
         _binding = null
     }
 
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        return when (item.itemId) {
-            R.id.home -> {
-                findNavController().navigateUp()
-                true
-            }
-            else -> super.onOptionsItemSelected(item)
-        }
-    }
 }
