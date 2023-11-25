@@ -6,19 +6,39 @@
 
     <!-- Course Name -->
     <TextView
-        android:id="@+id/course_name"
+        android:id="@+id/deliverable_course"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:textSize="18sp"
         android:textStyle="bold" />
 
-    <!-- Credit Hours -->
+    <!-- deliverable -->
     <TextView
-        android:id="@+id/course_ch"
+        android:id="@+id/deliverable_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/course_name"
+        android:layout_below="@id/deliverable_course"
+        android:layout_centerHorizontal="true"
+        android:textSize="16sp"
+        android:textColor="#808080" />
+
+    <!-- deliverable -->
+    <TextView
+        android:id="@+id/deliverable_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/deliverable_name"
+        android:layout_centerHorizontal="true"
+        android:textSize="16sp"
+        android:textColor="#808080" />
+
+    <!-- deliverable -->
+    <TextView
+        android:id="@+id/deliverable_worth"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/deliverable_date"
         android:layout_centerHorizontal="true"
         android:textSize="16sp"
         android:textColor="#808080" />
