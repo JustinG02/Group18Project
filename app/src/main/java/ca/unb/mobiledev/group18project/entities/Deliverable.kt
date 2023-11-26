@@ -19,6 +19,8 @@ class Deliverable {
 
     var name: String? = ""
 
+    var courseName: String? = ""
+
     var dueDate: String? = null  // Stored as "YYYY-MM-DD"
 
     var dueTime: String? = null  // Stored as "HH:MM"

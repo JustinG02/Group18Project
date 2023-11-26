@@ -56,12 +56,7 @@ open class CoursesFragment : Fragment(), View.OnClickListener {
 
         addButton.setOnClickListener(this)
 
-        //Temporary Placed here to update past dates
-        val calendar = Calendar.getInstance()
-        val dateFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
-        val currentDate = dateFormat.format(calendar.time)
-
-        mCourseViewModel.updatePastDates(currentDate)
+        updateClasses()
 
         mCourseViewModel.getAllIncompleteCourses().observe(viewLifecycleOwner) {
             SearchIncompleteCourses()
@@ -163,6 +158,7 @@ open class CoursesFragment : Fragment(), View.OnClickListener {
                     course?.info = info
                     mCourseViewModel.update(course!!)
                 }
+                updateClasses()
             }
             .setNegativeButton("Cancel", null)
 
@@ -175,5 +171,14 @@ open class CoursesFragment : Fragment(), View.OnClickListener {
             val adapter = CoursesAdapter(requireContext(), courses, mCourseViewModel, this)
             mListView.adapter = adapter
         }
+    }
+
+    fun updateClasses(){
+        //Temporary Placed here to update past dates
+        val calendar = Calendar.getInstance()
+        val dateFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
+        val currentDate = dateFormat.format(calendar.time)
+
+        mCourseViewModel.updatePastDates(currentDate)
     }
 }

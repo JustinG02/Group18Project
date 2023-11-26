@@ -35,12 +35,14 @@ class DeliverableAdapter(context: Context, items: List<Deliverable>, private val
         val deliverableWeight = currView!!.findViewById<TextView>(R.id.deliverable_weight)
 
 
-        val DeliverableMenu = currView!!.findViewById<ImageView>(R.id.image_menu)
+        val deliverableMenu = currView!!.findViewById<ImageView>(R.id.image_menu)
 
         deliverableName.text = item!!.name
-        //deliverableDate.text = item.weight
+        deliverableDate.text = item.dueDate +" "+ item.dueTime
+        deliverableWeight.text = item.weight.toString() + "%"
+        deliverableCourse.text = item.courseName
 
-        /**
+
         deliverableMenu.setOnClickListener {
             val popup = PopupMenu(context, deliverableMenu)
             popup.inflate(R.menu.courselist_menu)
@@ -59,7 +61,7 @@ class DeliverableAdapter(context: Context, items: List<Deliverable>, private val
             }
             popup.show()
         }
-        */
+
 
         // Return the completed view to render on screen
         return currView

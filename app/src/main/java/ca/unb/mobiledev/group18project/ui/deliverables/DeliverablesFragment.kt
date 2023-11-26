@@ -162,10 +162,11 @@ class DeliverablesFragment : Fragment(), View.OnClickListener {
 
                 if (new) {
                     Toast.makeText(binding.root.context, "New Data Entry", Toast.LENGTH_SHORT).show()
-                    mDeliverablesViewModel.insert(dName,courseID, selectedDueDate, selectedDueTime, dWeight, info)
+                    mDeliverablesViewModel.insert(dName, cName, courseID, selectedDueDate, selectedDueTime, dWeight, info)
                 } else {
                     Toast.makeText(binding.root.context, "Updated Data Entry", Toast.LENGTH_SHORT).show()
                     deliverable?.name = dName
+                    deliverable?.courseName = cName
                     deliverable?.courseID  = courseID
                     deliverable?.info = info
                     deliverable?.dueDate = selectedDueDate
