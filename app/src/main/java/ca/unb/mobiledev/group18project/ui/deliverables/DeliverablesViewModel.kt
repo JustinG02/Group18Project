@@ -21,8 +21,8 @@ class DeliverablesViewModel(application: Application) : AndroidViewModel(applica
     val allDeliverables: LiveData<List<Deliverable>> = deliverableRepository.getAllRecords()
 
     // Insert a new record
-    fun insert(name: String?, courseName: String?, courseID: Int, dueDate: String?, dueTime: String?, weight: Int, info: String) {
-        deliverableRepository.insertRecord(name, courseName, courseID, dueDate, dueTime, weight, info) //, dueDate, weight, info
+    fun insert(name: String?, courseName: String?, courseID: Int, dueDate: String?, dueTime: String?, weight: Int, info: String, grade: Int) {
+        deliverableRepository.insertRecord(name, courseName, courseID, dueDate, dueTime, weight, info, grade) //, dueDate, weight, info
     }
 
     fun delete(deliverable: Deliverable) {

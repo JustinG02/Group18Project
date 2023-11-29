@@ -13,7 +13,7 @@ import java.util.concurrent.Executors
 class DeliverableRepository(application: Application) {
     private val deliverableDao: DeliverableDao? = getDatabase(application).deliverableDao()
 
-    fun insertRecord(name: String?, courseName: String?, courseID: Int, dueDate: String?, dueTime: String?, weight: Int, info: String) {
+    fun insertRecord(name: String?, courseName: String?, courseID: Int, dueDate: String?, dueTime: String?, weight: Int, info: String, grade: Int?) {
         val deliverable = Deliverable()
         deliverable.name = name
         deliverable.courseName = courseName
@@ -23,6 +23,7 @@ class DeliverableRepository(application: Application) {
         deliverable.dueTime = dueTime
         deliverable.completed = false
         deliverable.info = info
+        deliverable.grade = grade
         AppDatabase.databaseWriterExecutor.execute { deliverableDao!!.insertDeliverable(deliverable) }
     }
 

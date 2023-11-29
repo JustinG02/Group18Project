@@ -17,23 +17,46 @@
         android:hint="Enter deliverable worth"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.562"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/dueDate" />
+        app:layout_constraintTop_toTopOf="@+id/dueDate"
+        app:layout_constraintVertical_bias="0.232" />
 
     <TextView
         android:id="@+id/textViewDeliverableWorth"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="6dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="2dp"
         android:text="Deliverable Worth:"
         app:layout_constraintBottom_toTopOf="@+id/editTextDeliverableWeight"
-        app:layout_constraintStart_toStartOf="@+id/editTextDeliverableWeight" />
+        app:layout_constraintStart_toStartOf="@+id/editTextDeliverableWeight"
+        app:layout_constraintTop_toBottomOf="@+id/dueDate" />
+
+
+    <EditText
+        android:id="@+id/editTextDeliverableGrade"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="9dp"
+        android:layout_marginEnd="5dp"
+        android:layout_marginBottom="10dp"
+        android:hint="Enter deliverable Grade"
+        app:layout_constraintBottom_toBottomOf="@id/infoTextView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+
+        app:layout_constraintStart_toEndOf="@+id/editTextDeliverableWeight"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editTextDeliverableWeight"
+        app:layout_constraintVertical_bias="0.0" />
 
     <EditText
         android:id="@+id/editTextDeliverableName"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="4dp"
+        android:layout_marginTop="3dp"
         android:hint="Enter Deliverable name"
         app:layout_constraintEnd_toEndOf="@+id/editTextDeliverableWeight"
         app:layout_constraintHorizontal_bias="0.0"
@@ -45,17 +68,19 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
+        android:layout_marginTop="20dp"
         android:layout_marginBottom="12dp"
         android:text="Course:"
         app:layout_constraintBottom_toTopOf="@+id/spinnerCourses"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/textViewDeliverableName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="12dp"
+        android:layout_marginTop="10dp"
         android:text="Deliverable Name:"
         app:layout_constraintStart_toStartOf="@+id/spinnerCourses"
         app:layout_constraintTop_toBottomOf="@+id/spinnerCourses" />
@@ -87,7 +112,7 @@
         android:id="@+id/spinnerCourses"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="76dp"
+        android:layout_marginTop="50dp"
         android:hint="Enter course name"
         app:layout_constraintEnd_toEndOf="@+id/editTextDeliverableName"
         app:layout_constraintHorizontal_bias="0.0"
@@ -106,14 +131,16 @@
 
     <EditText
         android:id="@+id/infoTextView"
-        android:layout_width="349dp"
-        android:layout_height="56dp"
-        android:layout_marginTop="16dp"
+        android:layout_width="386dp"
+        android:layout_height="42dp"
+        android:layout_marginTop="10dp"
         android:layout_marginBottom="16dp"
         android:hint="Optional Deliverable Information"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.48"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextDeliverableWeight" />
+        app:layout_constraintTop_toBottomOf="@+id/editTextDeliverableGrade"
+        app:layout_constraintVertical_bias="1.0" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

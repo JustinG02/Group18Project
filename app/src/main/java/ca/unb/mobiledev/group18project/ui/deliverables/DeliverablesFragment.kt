@@ -80,6 +80,7 @@ class DeliverablesFragment : Fragment(), View.OnClickListener {
         val spinnerCourse = dialogView.findViewById<Spinner>(R.id.spinnerCourses)
         val editDeliverableName = dialogView.findViewById<EditText>(R.id.editTextDeliverableName)
         val editDeliverableWeight = dialogView.findViewById<EditText>(R.id.editTextDeliverableWeight)
+        val editDeliverableGrade = dialogView.findViewById<EditText>(R.id.editTextDeliverableGrade)
         val dueDateButton = dialogView.findViewById<Button>(R.id.dueDate)
         val dueTimeButton = dialogView.findViewById<Button>(R.id.dueTime)
         val infoText = dialogView.findViewById<EditText>(R.id.infoTextView)
@@ -137,6 +138,7 @@ class DeliverablesFragment : Fragment(), View.OnClickListener {
             // Set existing values
             editDeliverableName.setText(deliverable?.name)
             editDeliverableWeight.setText(deliverable?.weight.toString())
+            editDeliverableGrade.setText(deliverable?.grade.toString())
             selectedDueDate = deliverable?.dueDate.toString() // Format: "YYYY-MM-DD"
             dueDateButton.text = selectedDueDate
             selectedDueTime = deliverable?.dueTime.toString() // Format: "YYYY-MM-DD"
@@ -153,6 +155,7 @@ class DeliverablesFragment : Fragment(), View.OnClickListener {
                 val courseID = modifiedCourseList.get(spinnerCourse.selectedItemId.toInt()).courseID
                 val dName = editDeliverableName.text.toString()
                 val dWeight = editDeliverableWeight.text.toString().toInt()
+                val dGrade = editDeliverableGrade.text.toString().toInt()
                 val info = infoText.text.toString()
 
                 if (cName == "Select a Course" || courseID == -1 || dName == "" || dWeight == null || selectedDueDate == "" || selectedDueTime == "") {
@@ -162,7 +165,8 @@ class DeliverablesFragment : Fragment(), View.OnClickListener {
 
                 if (new) {
                     Toast.makeText(binding.root.context, "New Data Entry", Toast.LENGTH_SHORT).show()
-                    mDeliverablesViewModel.insert(dName, cName, courseID, selectedDueDate, selectedDueTime, dWeight, info)
+                    val grade= 0;
+                    mDeliverablesViewModel.insert(dName, cName, courseID, selectedDueDate, selectedDueTime, dWeight, info, grade)
                 } else {
                     Toast.makeText(binding.root.context, "Updated Data Entry", Toast.LENGTH_SHORT).show()
                     deliverable?.name = dName
@@ -172,7 +176,9 @@ class DeliverablesFragment : Fragment(), View.OnClickListener {
                     deliverable?.dueDate = selectedDueDate
                     deliverable?.dueTime = selectedDueTime
                     deliverable?.weight = dWeight
+                    deliverable?.grade = 0
                     mDeliverablesViewModel.update(deliverable!!)
+
                 }
             }
             .setNegativeButton("Cancel", null)

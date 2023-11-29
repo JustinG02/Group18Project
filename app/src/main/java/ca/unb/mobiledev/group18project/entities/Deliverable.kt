@@ -31,4 +31,6 @@ class Deliverable {
 
     var info: String = ""
 
+    var grade: Int?= null
+
 }

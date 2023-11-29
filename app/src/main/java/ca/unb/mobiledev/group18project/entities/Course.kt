@@ -22,4 +22,6 @@ class Course : Serializable {
 
     var info: String = ""
 
+
+
 }
