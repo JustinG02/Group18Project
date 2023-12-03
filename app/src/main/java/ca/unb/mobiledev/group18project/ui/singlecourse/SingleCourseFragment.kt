@@ -207,4 +207,7 @@ class SingleCourseFragment : Fragment(), View.OnClickListener {
         }
     }
 
+
+
+
 }

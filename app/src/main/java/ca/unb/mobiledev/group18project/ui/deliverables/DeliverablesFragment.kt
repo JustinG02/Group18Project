@@ -165,8 +165,7 @@ class DeliverablesFragment : Fragment(), View.OnClickListener {
 
                 if (new) {
                     Toast.makeText(binding.root.context, "New Data Entry", Toast.LENGTH_SHORT).show()
-                    val grade= 0;
-                    mDeliverablesViewModel.insert(dName, cName, courseID, selectedDueDate, selectedDueTime, dWeight, info, grade)
+                    mDeliverablesViewModel.insert(dName, cName, courseID, selectedDueDate, selectedDueTime, dWeight, info, dGrade)
                 } else {
                     Toast.makeText(binding.root.context, "Updated Data Entry", Toast.LENGTH_SHORT).show()
                     deliverable?.name = dName
@@ -176,9 +175,8 @@ class DeliverablesFragment : Fragment(), View.OnClickListener {
                     deliverable?.dueDate = selectedDueDate
                     deliverable?.dueTime = selectedDueTime
                     deliverable?.weight = dWeight
-                    deliverable?.grade = 0
+                    deliverable?.grade = dGrade
                     mDeliverablesViewModel.update(deliverable!!)
-
                 }
             }
             .setNegativeButton("Cancel", null)

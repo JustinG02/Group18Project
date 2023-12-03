@@ -33,7 +33,7 @@ class DeliverableAdapter(context: Context, items: List<Deliverable>, private val
         val deliverableName = currView!!.findViewById<TextView>(R.id.deliverable_name)
         val deliverableDate = currView!!.findViewById<TextView>(R.id.deliverable_date)
         val deliverableWeight = currView!!.findViewById<TextView>(R.id.deliverable_weight)
-
+        //val deliverableGrade = currView!!.findViewById<TextView>(R.id.deliverable_grade)
 
         val deliverableMenu = currView!!.findViewById<ImageView>(R.id.image_menu)
 
@@ -41,6 +41,7 @@ class DeliverableAdapter(context: Context, items: List<Deliverable>, private val
         deliverableDate.text = item.dueDate +" "+ item.dueTime
         deliverableWeight.text = item.weight.toString() + "%"
         deliverableCourse.text = item.courseName
+        //deliverableGrade.text= item.grade.toString()+ "%"
 
 
         deliverableMenu.setOnClickListener {

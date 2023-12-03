@@ -34,13 +34,15 @@ class SingleCourseAdapter(context: Context, items: List<Deliverable>, private va
         val deliverableName = currView!!.findViewById<TextView>(R.id.deliverable_name)
         val deliverableDate = currView!!.findViewById<TextView>(R.id.deliverable_date)
         val deliverableWeight = currView!!.findViewById<TextView>(R.id.deliverable_weight)
-
+        val deliverableGrade = currView!!.findViewById<TextView>(R.id.deliverable_grade)
 
         val DeliverableMenu = currView!!.findViewById<ImageView>(R.id.image_menu)
 
         deliverableName.text = item!!.name
         deliverableDate.text = item.dueDate +" "+ item.dueTime
         deliverableWeight.text = item.weight.toString() + "%"
+        deliverableGrade.text= item.grade.toString()+ "%"
+
 
         return currView!!
     }
