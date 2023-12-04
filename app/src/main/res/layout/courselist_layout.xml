@@ -11,7 +11,7 @@
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="false"
         android:background="@drawable/rounded_corner_gpa"
-        android:text="A+"
+        android:text="-"
         android:textAlignment="textStart"
         android:textSize="18sp" />
 
