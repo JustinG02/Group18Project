@@ -4,8 +4,6 @@
         android:width="3dp"
         android:color="@color/orange" />
 
-    <solid android:color="#ffffff" />
-
     <padding
         android:left="10dp"
         android:right="1dp"

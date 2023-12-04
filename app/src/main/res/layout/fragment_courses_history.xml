@@ -11,7 +11,7 @@
         android:layout_width="107dp"
         android:layout_height="30dp"
         android:layout_marginTop="16dp"
-        android:layout_marginBottom="9dp"
+        android:layout_marginBottom="10dp"
         android:alpha="6"
         android:background="@drawable/rounded_corner_gpa"
         android:text="@string/courses_cgpa"
@@ -25,9 +25,8 @@
 
     <ListView
         android:id="@+id/courses_history"
-        android:layout_width="405dp"
+        android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginBottom="3dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

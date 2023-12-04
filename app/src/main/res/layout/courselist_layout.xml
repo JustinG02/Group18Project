@@ -11,9 +11,10 @@
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="false"
         android:background="@drawable/rounded_corner_gpa"
-        android:text="-"
+        android:text=""
         android:textAlignment="textStart"
-        android:textSize="18sp" />
+        android:textSize="18sp"
+        android:visibility="invisible"/>
 
     <!-- Course Name -->
     <TextView

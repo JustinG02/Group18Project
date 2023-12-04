@@ -156,13 +156,16 @@ class SingleCourseFragment : Fragment(), View.OnClickListener {
             // Set existing values
             editDeliverableName.setText(deliverable?.name)
             editDeliverableWeight.setText(deliverable?.weight.toString())
-            gradeText.setText(deliverable?.grade.toString())
+            if(deliverable?.grade != null) {
+                gradeText.setText(deliverable?.grade.toString())
+            }
             selectedDueDate = deliverable?.dueDate.toString() // Format: "YYYY-MM-DD"
             dueDateButton.text = selectedDueDate
-            selectedDueTime = deliverable?.dueTime.toString() // Format: "YYYY-MM-DD"
-            dueTimeButton.text = selectedDueTime
+            selectedDueTime = deliverable?.dueTime.toString() // Format: "HH-MM"
+            if(!selectedDueTime.isNullOrEmpty()){
+                dueTimeButton.text = selectedDueTime
+            }
             infoText.setText(deliverable?.info.toString())
-
         }
         builder.setView(dialogView)
             .setTitle(title)

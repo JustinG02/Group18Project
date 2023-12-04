@@ -33,6 +33,12 @@ class CoursesAdapter(context: Context, items: List<Course>, private val viewmode
         val courseName = currView!!.findViewById<TextView>(R.id.course_name)
         val courseCH = currView!!.findViewById<TextView>(R.id.course_ch)
         val courseMenu = currView!!.findViewById<ImageView>(R.id.image_menu)
+        val courseLetterGrade = currView!!.findViewById<TextView>(R.id.course_letterGrade)
+
+        if(!item!!.letterGrade.isNullOrEmpty()){
+            courseLetterGrade.text = item!!.letterGrade
+            courseLetterGrade.visibility = View.VISIBLE
+        }
 
         courseName.text = item!!.name
         courseCH.text = "${item.ch}ch"

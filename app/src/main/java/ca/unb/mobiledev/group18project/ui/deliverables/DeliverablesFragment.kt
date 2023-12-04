@@ -124,7 +124,7 @@ class DeliverablesFragment : Fragment(), View.OnClickListener {
             val placeHolder: Course = Course()
             placeHolder.name = "Select a Course"
             placeHolder.courseID = -1
-            modifiedCourseList.add(placeHolder) // Adjust this based on your Course class
+            modifiedCourseList.add(placeHolder)
             modifiedCourseList.addAll(courses)
 
             val courseNames = modifiedCourseList.map { it.name }
@@ -143,11 +143,15 @@ class DeliverablesFragment : Fragment(), View.OnClickListener {
             // Set existing values
             editDeliverableName.setText(deliverable?.name)
             editDeliverableWeight.setText(deliverable?.weight.toString())
-            editDeliverableGrade.setText(deliverable?.grade.toString())
+            if(deliverable?.grade != null){
+                editDeliverableGrade.setText(deliverable?.grade.toString())
+            }
             selectedDueDate = deliverable?.dueDate.toString() // Format: "YYYY-MM-DD"
             dueDateButton.text = selectedDueDate
-            selectedDueTime = deliverable?.dueTime.toString() // Format: "YYYY-MM-DD"
-            dueTimeButton.text = selectedDueTime
+            selectedDueTime = deliverable?.dueTime.toString() // Format: "HH-MM"
+            if(!selectedDueTime.isNullOrEmpty()){
+                dueTimeButton.text = selectedDueTime
+            }
             infoText.setText(deliverable?.info.toString())
             var courseIndex = modifiedCourseList.indexOfFirst{ it.courseID == deliverable?.courseID }
             spinnerCourse.setSelection(courseIndex)
