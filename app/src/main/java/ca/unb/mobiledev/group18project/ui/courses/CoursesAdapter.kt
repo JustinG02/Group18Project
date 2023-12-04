@@ -15,6 +15,8 @@ import androidx.navigation.fragment.findNavController
 import ca.unb.mobiledev.group18project.R
 import ca.unb.mobiledev.group18project.entities.Course
 import ca.unb.mobiledev.group18project.ui.singlecourse.SingleCourseFragment
+import java.text.SimpleDateFormat
+import java.util.Locale
 
 
 class CoursesAdapter(context: Context, items: List<Course>, private val viewmodel: CoursesViewModel, private val fragment: CoursesFragment) : ArrayAdapter<Course>(
@@ -34,6 +36,7 @@ class CoursesAdapter(context: Context, items: List<Course>, private val viewmode
         val courseCH = currView!!.findViewById<TextView>(R.id.course_ch)
         val courseMenu = currView!!.findViewById<ImageView>(R.id.image_menu)
         val courseLetterGrade = currView!!.findViewById<TextView>(R.id.course_letterGrade)
+        val courseDate = currView!!.findViewById<TextView>(R.id.course_date)
 
         if(!item!!.letterGrade.isNullOrEmpty()){
             courseLetterGrade.text = item!!.letterGrade
@@ -42,6 +45,7 @@ class CoursesAdapter(context: Context, items: List<Course>, private val viewmode
 
         courseName.text = item!!.name
         courseCH.text = "${item.ch}ch"
+        courseDate.text = formatDate(item.startDate) + " - " + formatDate(item.endDate)
 
         currView.setOnClickListener {
             // Navigate to the SingleCourseFragment
@@ -53,7 +57,13 @@ class CoursesAdapter(context: Context, items: List<Course>, private val viewmode
             singleCourseFragment.arguments = bundle
 
             // Use findNavController to navigate to SingleCourseFragment with the bundle
-            fragment.findNavController().navigate(R.id.action_navigation_courses_to_navigation_single_course, bundle)
+
+            if (fragment is CoursesHistoryFragment) {
+                fragment.findNavController().navigate(R.id.action_navigation_courses_history_to_navigation_single_course, bundle)
+            }else if (fragment is CoursesFragment){
+                fragment.findNavController().navigate(R.id.action_navigation_courses_to_navigation_single_course, bundle)
+            }
+
         }
 
         courseMenu.setOnClickListener {
@@ -77,5 +87,17 @@ class CoursesAdapter(context: Context, items: List<Course>, private val viewmode
 
         // Return the completed view to render on screen
         return currView
+    }
+
+    fun formatDate(date: String?): String {
+        val inputDateFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
+        val outputDateFormat = SimpleDateFormat("MMM dd, yyyy", Locale.getDefault())
+
+        if(date.isNullOrEmpty()){
+            return ""
+        }
+        val date = inputDateFormat.parse(date)
+        val formattedDate = outputDateFormat.format(date)
+        return "$formattedDate"
     }
 }

@@ -19,6 +19,8 @@ import ca.unb.mobiledev.group18project.entities.Deliverable
 import ca.unb.mobiledev.group18project.ui.courses.CoursesViewModel
 import ca.unb.mobiledev.group18project.ui.singlecourse.SingleCourseFragment
 import kotlinx.coroutines.launch
+import java.text.SimpleDateFormat
+import java.util.Locale
 
 class DeliverableAdapter(context: Context, items: List<Deliverable>, private val viewmodel: DeliverablesViewModel, private val fragment: DeliverablesFragment) : ArrayAdapter<Deliverable>(
     context, 0, items) {
@@ -48,7 +50,7 @@ class DeliverableAdapter(context: Context, items: List<Deliverable>, private val
             deliverableGrade.text = "No Grade"
         }
 
-        deliverableDate.text = item.dueDate +" "+ item.dueTime
+        deliverableDate.text = formatDate(item.dueDate) +" "+ formatTime(item.dueTime)
         deliverableWeight.text = "Weight: "+item.weight.toString() + "%"
         deliverableTitle.text = item.courseName + " - " + item!!.name
         //deliverableGrade.text= item.grade.toString()+ "%"
@@ -93,5 +95,30 @@ class DeliverableAdapter(context: Context, items: List<Deliverable>, private val
 
         // Return the completed view to render on screen
         return currView
+    }
+
+    fun formatDate(dueDate: String?): String {
+        val inputDateFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
+        val outputDateFormat = SimpleDateFormat("MMM dd, yyyy", Locale.getDefault())
+
+        if(dueDate.isNullOrEmpty()){
+            return ""
+        }
+        val date = inputDateFormat.parse(dueDate)
+        val formattedDate = outputDateFormat.format(date)
+        return "$formattedDate"
+    }
+
+    fun formatTime(dueTime: String?) : String{
+        val inputTimeFormat = SimpleDateFormat("HH:mm", Locale.getDefault())
+        val outputTimeFormat = SimpleDateFormat("hh:mm a", Locale.getDefault())
+
+        if(dueTime.isNullOrEmpty()){
+            return ""
+        }
+        val time = inputTimeFormat.parse(dueTime)
+        val formattedTime = outputTimeFormat.format(time)
+        return "$formattedTime"
+
     }
 }

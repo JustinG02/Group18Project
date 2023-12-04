@@ -161,7 +161,7 @@ class SingleCourseFragment : Fragment(), View.OnClickListener {
             }
             selectedDueDate = deliverable?.dueDate.toString() // Format: "YYYY-MM-DD"
             dueDateButton.text = selectedDueDate
-            selectedDueTime = deliverable?.dueTime.toString() // Format: "HH-MM"
+            selectedDueTime = deliverable?.dueTime.toString() // Format: "HH:MM"
             if(!selectedDueTime.isNullOrEmpty()){
                 dueTimeButton.text = selectedDueTime
             }
@@ -179,9 +179,9 @@ class SingleCourseFragment : Fragment(), View.OnClickListener {
                     val info = infoText.text.toString()
                     val dGradeText = gradeText.text.toString()
 
-                    val dGrade : Int? = null
+                    var dGrade : Int? = null
                     if (dGradeText != ""){
-                        dGrade == dGradeText.toInt()
+                        dGrade = dGradeText.toInt()
                     }
 
 
@@ -204,6 +204,7 @@ class SingleCourseFragment : Fragment(), View.OnClickListener {
                         deliverable?.dueTime = selectedDueTime
                         deliverable?.weight = dWeight
                         deliverable?.grade= dGrade
+
                         mDeliverablesViewModel.update(deliverable!!)
                     }
                     updateDeliverables()

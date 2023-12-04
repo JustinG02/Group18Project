@@ -63,4 +63,8 @@ class CourseRepository(application: Application) {
     fun updatePastDates(currentDate: String) {
         AppDatabase.databaseWriterExecutor.execute { courseDao!!.updatePastDates(currentDate) }
     }
+
+    fun updateFutureDates(currentDate: String) {
+        AppDatabase.databaseWriterExecutor.execute { courseDao!!.updateFutureDates(currentDate) }
+    }
 }

@@ -40,4 +40,7 @@ interface CourseDao {
 
     @Query("UPDATE courses_table SET completed = '1' WHERE endDate < :currentDate")
     fun updatePastDates(currentDate: String)
+
+    @Query("UPDATE courses_table SET completed = '0' WHERE endDate > :currentDate")
+    fun updateFutureDates(currentDate: String)
 }

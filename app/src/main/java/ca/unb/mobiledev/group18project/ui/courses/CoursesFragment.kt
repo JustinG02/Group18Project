@@ -56,7 +56,7 @@ open class CoursesFragment : Fragment(), View.OnClickListener {
 
         addButton.setOnClickListener(this)
 
-        updateClasses()
+        updatePastClasses()
 
         mCourseViewModel.getAllIncompleteCourses().observe(viewLifecycleOwner) {
             SearchIncompleteCourses()
@@ -78,7 +78,7 @@ open class CoursesFragment : Fragment(), View.OnClickListener {
         }
     }
 
-    fun BuildDialog(title: String, course: Course?, new: Boolean) {
+    open fun BuildDialog(title: String, course: Course?, new: Boolean) {
         val builder: AlertDialog.Builder = AlertDialog.Builder(requireContext())
         val inflater = requireActivity().layoutInflater
         val dialogView = inflater.inflate(R.layout.dialog_add_course, null)
@@ -101,15 +101,6 @@ open class CoursesFragment : Fragment(), View.OnClickListener {
 
             datePickerDialog.show()
         }
-
-        /*pickTimeButton.setOnClickListener {
-            val calendar = Calendar.getInstance()
-            val timePickerDialog = TimePickerDialog(requireContext(), { _, hourOfDay, minute ->
-                selectedTime = String.format("%02d:%02d", hourOfDay, minute)
-            }, calendar.get(Calendar.HOUR_OF_DAY), calendar.get(Calendar.MINUTE), true)
-
-            timePickerDialog.show()
-        }*/
 
         endDateButton.setOnClickListener {
             val calendar = Calendar.getInstance()
@@ -160,7 +151,7 @@ open class CoursesFragment : Fragment(), View.OnClickListener {
                         course?.info = info
                         mCourseViewModel.update(course!!)
                     }
-                    updateClasses()
+                    updatePastClasses()
                 } catch(e: Exception){
                     Toast.makeText(binding.root.context, "Something Went Wrong. Please ensure correct format", Toast.LENGTH_SHORT).show()
                     return@setPositiveButton
@@ -179,7 +170,7 @@ open class CoursesFragment : Fragment(), View.OnClickListener {
         }
     }
 
-    fun updateClasses(){
+    fun updatePastClasses(){
         //Temporary Placed here to update past dates
         val calendar = Calendar.getInstance()
         val dateFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())

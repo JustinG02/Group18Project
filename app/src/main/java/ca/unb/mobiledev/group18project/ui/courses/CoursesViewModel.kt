@@ -42,4 +42,8 @@ class CoursesViewModel(application: Application) : AndroidViewModel(application)
     fun updatePastDates(currentDate: String) {
         courseRepository.updatePastDates(currentDate)
     }
+
+    fun updateFutureDates(currentDate: String) {
+        courseRepository.updateFutureDates(currentDate)
+    }
 }

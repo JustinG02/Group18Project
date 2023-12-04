@@ -133,11 +133,15 @@ class DeliverablesFragment : Fragment(), View.OnClickListener {
             val adapter = ArrayAdapter(requireContext(), android.R.layout.simple_spinner_item, courseNames)
             adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
             spinnerCourse.adapter = adapter
+
+            if (!new) {
+                var courseIndex = modifiedCourseList.indexOfFirst { it.courseID == deliverable?.courseID }
+                if (courseIndex != -1) {
+                    spinnerCourse.setSelection(courseIndex)
+                }
+            }
             // Update your ListView or UI component here with courseList
         }// get your list of courses here
-
-
-
 
         if(!new){
             // Set existing values
@@ -148,13 +152,11 @@ class DeliverablesFragment : Fragment(), View.OnClickListener {
             }
             selectedDueDate = deliverable?.dueDate.toString() // Format: "YYYY-MM-DD"
             dueDateButton.text = selectedDueDate
-            selectedDueTime = deliverable?.dueTime.toString() // Format: "HH-MM"
+            selectedDueTime = deliverable?.dueTime.toString() // Format: "HH:MM"
             if(!selectedDueTime.isNullOrEmpty()){
                 dueTimeButton.text = selectedDueTime
             }
             infoText.setText(deliverable?.info.toString())
-            var courseIndex = modifiedCourseList.indexOfFirst{ it.courseID == deliverable?.courseID }
-            spinnerCourse.setSelection(courseIndex)
         }
         builder.setView(dialogView)
             .setTitle(title)
@@ -168,9 +170,9 @@ class DeliverablesFragment : Fragment(), View.OnClickListener {
                     var dGradeText = editDeliverableGrade.text.toString()
                     val info = infoText.text.toString()
 
-                    val dGrade : Int? = null
+                    var dGrade : Int? = null
                     if (dGradeText != ""){
-                        dGrade == dGradeText.toInt()
+                        dGrade = dGradeText.toInt()
                     }
 
                     if (cName == "Select a Course" || courseID == -1 || dName == "" || dWeight == null || selectedDueDate == "") {
@@ -199,7 +201,6 @@ class DeliverablesFragment : Fragment(), View.OnClickListener {
                     Toast.makeText(binding.root.context, "Something Went Wrong. Please ensure correct format", Toast.LENGTH_SHORT).show()
                     return@setPositiveButton
                 }
-
             }
             .setNegativeButton("Cancel", null)
 

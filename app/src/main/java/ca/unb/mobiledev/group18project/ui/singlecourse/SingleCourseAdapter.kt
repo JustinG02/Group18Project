@@ -18,6 +18,8 @@ import ca.unb.mobiledev.group18project.ui.courses.CoursesFragment
 import ca.unb.mobiledev.group18project.ui.courses.CoursesViewModel
 import ca.unb.mobiledev.group18project.ui.deliverables.DeliverableAdapter
 import ca.unb.mobiledev.group18project.ui.deliverables.DeliverablesViewModel
+import java.text.SimpleDateFormat
+import java.util.Locale
 
 class SingleCourseAdapter(context: Context, items: List<Deliverable>, private val viewmodel: DeliverablesViewModel, private val fragment: SingleCourseFragment) : ArrayAdapter<Deliverable>(
     context, 0, items) {
@@ -47,7 +49,7 @@ class SingleCourseAdapter(context: Context, items: List<Deliverable>, private va
         }
 
         deliverableName.text = item!!.name
-        deliverableDate.text = item.dueDate +" "+ item.dueTime
+        deliverableDate.text = formatDate(item.dueDate) +" "+ formatTime(item.dueTime)
         deliverableWeight.text = "Weight: "+item.weight.toString() + "%"
 
         deliverableMenu.setOnClickListener {
@@ -70,5 +72,30 @@ class SingleCourseAdapter(context: Context, items: List<Deliverable>, private va
         }
 
         return currView!!
+    }
+
+    fun formatDate(dueDate: String?): String {
+        val inputDateFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
+        val outputDateFormat = SimpleDateFormat("MMM dd, yyyy", Locale.getDefault())
+
+        if(dueDate.isNullOrEmpty()){
+            return ""
+        }
+        val date = inputDateFormat.parse(dueDate)
+        val formattedDate = outputDateFormat.format(date)
+        return "$formattedDate"
+    }
+
+    fun formatTime(dueTime: String?) : String{
+        val inputTimeFormat = SimpleDateFormat("HH:mm", Locale.getDefault())
+        val outputTimeFormat = SimpleDateFormat("hh:mm a", Locale.getDefault())
+
+        if(dueTime.isNullOrEmpty()){
+            return ""
+        }
+        val time = inputTimeFormat.parse(dueTime)
+        val formattedTime = outputTimeFormat.format(time)
+        return "$formattedTime"
+
     }
 }
