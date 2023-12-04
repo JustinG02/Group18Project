@@ -137,28 +137,34 @@ open class CoursesFragment : Fragment(), View.OnClickListener {
         builder.setView(dialogView)
             .setTitle(title)
             .setPositiveButton("Submit") { _, _ ->
-                val name = editTextCourse.text.toString()
-                val ch = chTextCourse.text.toString()
-                val info = infoText.text.toString()
 
-                if (name == "" || ch.toIntOrNull() == null || selectedStartDate == "" || selectedEndDate == "") {
-                    Toast.makeText(binding.root.context, "Data entered is incomplete/incorrect format. Data has not been saved.", Toast.LENGTH_SHORT).show()
+                try{
+                    val name = editTextCourse.text.toString()
+                    val ch = chTextCourse.text.toString()
+                    val info = infoText.text.toString()
+
+                    if (name == "" || ch.toIntOrNull() == null || selectedStartDate == "" || selectedEndDate == "") {
+                        Toast.makeText(binding.root.context, "Data entered is incomplete/incorrect format. Data has not been saved.", Toast.LENGTH_SHORT).show()
+                        return@setPositiveButton
+                    }
+
+                    if (new) {
+                        Toast.makeText(binding.root.context, "New Data Entry", Toast.LENGTH_SHORT).show()
+                        mCourseViewModel.insert(name, ch.toInt(), selectedStartDate, selectedEndDate, info)
+                    } else {
+                        Toast.makeText(binding.root.context, "Updated Data Entry", Toast.LENGTH_SHORT).show()
+                        course?.name = name
+                        course?.ch = ch.toInt()
+                        course?.startDate = selectedStartDate
+                        course?.endDate = selectedEndDate
+                        course?.info = info
+                        mCourseViewModel.update(course!!)
+                    }
+                    updateClasses()
+                } catch(e: Exception){
+                    Toast.makeText(binding.root.context, "Something Went Wrong. Please ensure correct format", Toast.LENGTH_SHORT).show()
                     return@setPositiveButton
                 }
-
-                if (new) {
-                    Toast.makeText(binding.root.context, "New Data Entry", Toast.LENGTH_SHORT).show()
-                    mCourseViewModel.insert(name, ch.toInt(), selectedStartDate, selectedEndDate, info)
-                } else {
-                    Toast.makeText(binding.root.context, "Updated Data Entry", Toast.LENGTH_SHORT).show()
-                    course?.name = name
-                    course?.ch = ch.toInt()
-                    course?.startDate = selectedStartDate
-                    course?.endDate = selectedEndDate
-                    course?.info = info
-                    mCourseViewModel.update(course!!)
-                }
-                updateClasses()
             }
             .setNegativeButton("Cancel", null)
 

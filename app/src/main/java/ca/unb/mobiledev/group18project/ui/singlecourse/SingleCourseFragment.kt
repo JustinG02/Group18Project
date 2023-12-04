@@ -27,7 +27,9 @@ import ca.unb.mobiledev.group18project.entities.Deliverable
 import ca.unb.mobiledev.group18project.ui.courses.CoursesViewModel
 import ca.unb.mobiledev.group18project.ui.deliverables.DeliverableAdapter
 import ca.unb.mobiledev.group18project.ui.deliverables.DeliverablesViewModel
+import java.text.SimpleDateFormat
 import java.util.Calendar
+import java.util.Locale
 
 
 class SingleCourseFragment : Fragment(), View.OnClickListener {
@@ -71,6 +73,8 @@ class SingleCourseFragment : Fragment(), View.OnClickListener {
 
         mListView = root.findViewById(R.id.deliverable_list)
         val addButton = root.findViewById<Button>(R.id.add_deliverables)
+
+        updateDeliverables()
 
         addButton.setOnClickListener(this)
 
@@ -164,35 +168,46 @@ class SingleCourseFragment : Fragment(), View.OnClickListener {
             .setTitle(title)
             .setPositiveButton("Submit") { _, _ ->
 
-                val cName = modifiedCourseList.get(spinnerCourse.selectedItemId.toInt()).name
-                val courseID = modifiedCourseList.get(spinnerCourse.selectedItemId.toInt()).courseID
-                val dName = editDeliverableName.text.toString()
-                val dWeight = editDeliverableWeight.text.toString().toInt()
-                val info = infoText.text.toString()
-                val dGrade = gradeText.text.toString().toIntOrNull()
+                try{
+                    val cName = modifiedCourseList.get(spinnerCourse.selectedItemId.toInt()).name
+                    val courseID = modifiedCourseList.get(spinnerCourse.selectedItemId.toInt()).courseID
+                    val dName = editDeliverableName.text.toString()
+                    val dWeight = editDeliverableWeight.text.toString().toInt()
+                    val info = infoText.text.toString()
+                    val dGradeText = gradeText.text.toString()
+
+                    val dGrade : Int? = null
+                    if (dGradeText != ""){
+                        dGrade == dGradeText.toInt()
+                    }
 
 
-                if (cName == "Select a Course" || courseID == -1 || dName == "" || dWeight == null || selectedDueDate == "" || selectedDueTime == "") {
-                    Toast.makeText(binding.root.context, "Data entered is incomplete/incorrect format. Data has not been saved.", Toast.LENGTH_SHORT).show()
-                    return@setPositiveButton
-                }
+                    if (cName == "Select a Course" || courseID == -1 || dName == "" || dWeight == null || selectedDueDate == "") {
+                        Toast.makeText(binding.root.context, "Data entered is incomplete/incorrect format. Data has not been saved.", Toast.LENGTH_SHORT).show()
+                        return@setPositiveButton
+                    }
 
-                if (new) {
-                    Toast.makeText(binding.root.context, "New Data Entry", Toast.LENGTH_SHORT).show()
-                        mDeliverablesViewModel.insert(dName, cName, courseID, selectedDueDate, selectedDueTime, dWeight, info, dGrade!!)
+                    if (new) {
+                        Toast.makeText(binding.root.context, "New Data Entry", Toast.LENGTH_SHORT).show()
+                            mDeliverablesViewModel.insert(dName, cName, courseID, selectedDueDate, selectedDueTime, dWeight, info, dGrade)
 
-                } else {
-                    Toast.makeText(binding.root.context, "Updated Data Entry", Toast.LENGTH_SHORT).show()
-                    deliverable?.name = dName
-                    deliverable?.courseName = cName
-                    deliverable?.courseID  = courseID
-                    deliverable?.info = info
-                    deliverable?.dueDate = selectedDueDate
-                    deliverable?.dueTime = selectedDueTime
-                    deliverable?.weight = dWeight
-                    deliverable?.grade= dGrade
-                    mDeliverablesViewModel.update(deliverable!!)
-                }
+                    } else {
+                        Toast.makeText(binding.root.context, "Updated Data Entry", Toast.LENGTH_SHORT).show()
+                        deliverable?.name = dName
+                        deliverable?.courseName = cName
+                        deliverable?.courseID  = courseID
+                        deliverable?.info = info
+                        deliverable?.dueDate = selectedDueDate
+                        deliverable?.dueTime = selectedDueTime
+                        deliverable?.weight = dWeight
+                        deliverable?.grade= dGrade
+                        mDeliverablesViewModel.update(deliverable!!)
+                    }
+                    updateDeliverables()
+                } catch(e: Exception){
+                Toast.makeText(binding.root.context, "Something Went Wrong. Please ensure correct format", Toast.LENGTH_SHORT).show()
+                return@setPositiveButton
+            }
             }
             .setNegativeButton("Cancel", null)
 
@@ -207,7 +222,15 @@ class SingleCourseFragment : Fragment(), View.OnClickListener {
         }
     }
 
+    fun updateDeliverables(){
+        //Temporary Placed here to update past dates
+        val calendar = Calendar.getInstance()
+        val dateFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
+        val currentDate = dateFormat.format(calendar.time)
+        val timeFormat = SimpleDateFormat("HH:mm", Locale.getDefault())
+        val currentTime =  timeFormat.format(calendar.time)
 
-
+        mDeliverablesViewModel.updatePastDates(currentDate,currentTime)
+    }
 
 }

@@ -14,12 +14,22 @@
         android:textSize="16sp"
         android:textColor="#808080" />
 
+    <TextView
+        android:id="@+id/deliverable_grade"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="50dp"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/deliverable_name"
+        android:textColor="#808080"
+        android:textSize="16sp" />
+
     <!-- deliverable -->
     <TextView
         android:id="@+id/deliverable_date"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/deliverable_name"
+        android:layout_below="@id/deliverable_grade"
         android:layout_centerHorizontal="true"
         android:textSize="16sp"
         android:textColor="#808080" />
@@ -33,17 +43,6 @@
         android:layout_centerHorizontal="true"
         android:textSize="16sp"
         android:textColor="#808080" />
-
-    <TextView
-        android:id="@+id/deliverable_grade"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="50dp"
-        android:layout_centerHorizontal="true"
-        android:layout_below="@id/deliverable_weight"
-        android:textColor="#808080"
-        android:textSize="16sp" />
-
 
 
 

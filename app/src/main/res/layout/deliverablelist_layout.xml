@@ -6,7 +6,7 @@
 
     <!-- Course Name -->
     <TextView
-        android:id="@+id/deliverable_course"
+        android:id="@+id/deliverable_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
@@ -15,10 +15,10 @@
 
     <!-- deliverable -->
     <TextView
-        android:id="@+id/deliverable_name"
+        android:id="@+id/deliverable_grade"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/deliverable_course"
+        android:layout_below="@id/deliverable_title"
         android:layout_centerHorizontal="true"
         android:textSize="16sp"
         android:textColor="#808080" />
@@ -28,7 +28,7 @@
         android:id="@+id/deliverable_date"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/deliverable_name"
+        android:layout_below="@id/deliverable_grade"
         android:layout_centerHorizontal="true"
         android:textSize="16sp"
         android:textColor="#808080" />

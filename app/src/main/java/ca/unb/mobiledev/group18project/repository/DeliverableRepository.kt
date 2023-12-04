@@ -5,7 +5,10 @@ import androidx.lifecycle.LiveData
 import ca.unb.mobiledev.group18project.daos.DeliverableDao
 import ca.unb.mobiledev.group18project.db.AppDatabase
 import ca.unb.mobiledev.group18project.db.AppDatabase.Companion.getDatabase
+import ca.unb.mobiledev.group18project.entities.Course
 import ca.unb.mobiledev.group18project.entities.Deliverable
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 import java.util.Date
 import java.util.concurrent.Callable
 import java.util.concurrent.Executors
@@ -55,5 +58,15 @@ class DeliverableRepository(application: Application) {
             deliverableDao!!.listAllCourseDeliverables(courseID)
         })
         return searchResultFuture.get()
+    }
+
+    fun updatePastDates(currentDate: String, currentTime: String) {
+        AppDatabase.databaseWriterExecutor.execute { deliverableDao!!.updatePastDates(currentDate, currentTime) }
+    }
+
+    suspend fun getCourse(courseID: Int): Course {
+        return withContext(Dispatchers.IO) {
+            deliverableDao!!.getCourse(courseID)[0]
+        }
     }
 }

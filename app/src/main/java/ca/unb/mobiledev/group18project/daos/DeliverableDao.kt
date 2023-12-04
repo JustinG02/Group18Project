@@ -7,13 +7,14 @@ import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import androidx.room.Update
+import ca.unb.mobiledev.group18project.entities.Course
 import ca.unb.mobiledev.group18project.entities.Deliverable
 
 @Dao
 interface DeliverableDao {
     @Query("SELECT * from deliverables_table ORDER BY delivID ASC")
     fun listAllDeliverables(): LiveData<List<Deliverable>>
-    @Query("SELECT * from deliverables_table WHERE completed = '0' ORDER BY dueDate DESC")
+    @Query("SELECT * from deliverables_table WHERE completed = '0' ORDER BY dueDate DESC, dueTime DESC")
     fun listAllIncompleteDeliverables(): LiveData<List<Deliverable>>
 
     @Query("SELECT * from deliverables_table WHERE courseID = :courseID ORDER BY name ASC ")
@@ -28,4 +29,9 @@ interface DeliverableDao {
     @Update
     fun updateDeliverable(deliverable: Deliverable)
 
+    @Query("UPDATE deliverables_table SET completed = '1' WHERE dueDate < :currentDate AND dueTime < :currentTime")
+    fun updatePastDates(currentDate: String, currentTime: String)
+
+    @Query("SELECT * from courses_table WHERE courseID = :courseID")
+    fun getCourse(courseID: Int): List<Course>
 }

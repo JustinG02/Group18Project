@@ -6,6 +6,8 @@ import ca.unb.mobiledev.group18project.daos.CourseDao
 import ca.unb.mobiledev.group18project.db.AppDatabase
 import ca.unb.mobiledev.group18project.db.AppDatabase.Companion.getDatabase
 import ca.unb.mobiledev.group18project.entities.Course
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 import java.util.Date
 import java.util.concurrent.Callable
 import java.util.concurrent.Executors

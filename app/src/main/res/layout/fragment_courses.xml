@@ -10,6 +10,7 @@
         android:id="@+id/gpa"
         android:layout_width="108dp"
         android:layout_height="29dp"
+        android:layout_marginTop="16dp"
         android:alpha="6"
         android:background="@drawable/rounded_corner_gpa"
         android:text="@string/courses_gpa"
@@ -37,7 +38,7 @@
         android:id="@+id/courses_history"
         android:layout_width="365dp"
         android:layout_height="60dp"
-        android:layout_marginBottom="60dp"
+        android:layout_marginBottom="5dp"
         android:text="@string/courses_button_courses_history"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -45,12 +46,13 @@
 
     <ListView
         android:id="@+id/courses_view"
-        android:layout_width="409dp"
-        android:layout_height="425dp"
+        android:layout_width="412dp"
+        android:layout_height="0dp"
         android:layout_marginTop="12dp"
         app:layout_constraintBottom_toTopOf="@+id/add_course"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.4"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/gpa"
-        app:layout_constraintVertical_bias="0.338" />
+        app:layout_constraintVertical_bias="0.416" />
 </androidx.constraintlayout.widget.ConstraintLayout>

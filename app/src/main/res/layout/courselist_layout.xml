@@ -4,6 +4,17 @@
     android:layout_height="wrap_content"
     android:padding="16dp">
 
+    <!-- Course Letter Grade -->
+    <TextView
+        android:id="@+id/course_letterGrade"
+        android:layout_width="43dp"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="false"
+        android:background="@drawable/rounded_corner_gpa"
+        android:text="A+"
+        android:textAlignment="textStart"
+        android:textSize="18sp" />
+
     <!-- Course Name -->
     <TextView
         android:id="@+id/course_name"

@@ -22,6 +22,6 @@ class Course : Serializable {
 
     var info: String = ""
 
-
+    var letterGrade: String? = null
 
 }

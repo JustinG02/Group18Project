@@ -4,6 +4,7 @@ import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import ca.unb.mobiledev.group18project.entities.Course
 import ca.unb.mobiledev.group18project.entities.Deliverable
 import ca.unb.mobiledev.group18project.repository.DeliverableRepository
 import java.util.Date
@@ -21,7 +22,7 @@ class DeliverablesViewModel(application: Application) : AndroidViewModel(applica
     val allDeliverables: LiveData<List<Deliverable>> = deliverableRepository.getAllRecords()
 
     // Insert a new record
-    fun insert(name: String?, courseName: String?, courseID: Int, dueDate: String?, dueTime: String?, weight: Int, info: String, grade: Int) {
+    fun insert(name: String?, courseName: String?, courseID: Int, dueDate: String?, dueTime: String?, weight: Int, info: String, grade: Int?) {
         deliverableRepository.insertRecord(name, courseName, courseID, dueDate, dueTime, weight, info, grade) //, dueDate, weight, info
     }
 
@@ -41,4 +42,11 @@ class DeliverablesViewModel(application: Application) : AndroidViewModel(applica
         return deliverableRepository.getAllDeliverablesOfACourse(courseID)
     }
 
+    fun updatePastDates(currentDate: String, currentTime: String) {
+        deliverableRepository.updatePastDates(currentDate,currentTime)
+    }
+
+    suspend fun getCourse(courseId: Int): Course {
+        return deliverableRepository.getCourse(courseId)
+    }
 }

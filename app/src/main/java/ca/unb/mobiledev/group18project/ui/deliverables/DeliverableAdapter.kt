@@ -10,10 +10,15 @@ import android.widget.ImageView
 import android.widget.PopupMenu
 import android.widget.TextView
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.viewModelScope
+import androidx.navigation.fragment.findNavController
 import ca.unb.mobiledev.group18project.R
 import ca.unb.mobiledev.group18project.entities.Course
 import ca.unb.mobiledev.group18project.entities.Deliverable
+import ca.unb.mobiledev.group18project.ui.courses.CoursesViewModel
 import ca.unb.mobiledev.group18project.ui.singlecourse.SingleCourseFragment
+import kotlinx.coroutines.launch
 
 class DeliverableAdapter(context: Context, items: List<Deliverable>, private val viewmodel: DeliverablesViewModel, private val fragment: DeliverablesFragment) : ArrayAdapter<Deliverable>(
     context, 0, items) {
@@ -29,20 +34,42 @@ class DeliverableAdapter(context: Context, items: List<Deliverable>, private val
 
 
         // Lookup view for data population
-        val deliverableCourse= currView!!.findViewById<TextView>(R.id.deliverable_course)
-        val deliverableName = currView!!.findViewById<TextView>(R.id.deliverable_name)
+        val deliverableTitle= currView!!.findViewById<TextView>(R.id.deliverable_title)
+        val deliverableGrade = currView!!.findViewById<TextView>(R.id.deliverable_grade)
         val deliverableDate = currView!!.findViewById<TextView>(R.id.deliverable_date)
         val deliverableWeight = currView!!.findViewById<TextView>(R.id.deliverable_weight)
         //val deliverableGrade = currView!!.findViewById<TextView>(R.id.deliverable_grade)
 
         val deliverableMenu = currView!!.findViewById<ImageView>(R.id.image_menu)
 
-        deliverableName.text = item!!.name
+        if(item!!.grade != null) {
+            deliverableGrade.text = "Grade: "+item!!.grade.toString()+"%"
+        }else{
+            deliverableGrade.text = "No Grade"
+        }
+
         deliverableDate.text = item.dueDate +" "+ item.dueTime
-        deliverableWeight.text = item.weight.toString() + "%"
-        deliverableCourse.text = item.courseName
+        deliverableWeight.text = "Weight: "+item.weight.toString() + "%"
+        deliverableTitle.text = item.courseName + " - " + item!!.name
         //deliverableGrade.text= item.grade.toString()+ "%"
 
+        currView.setOnClickListener {
+            // Navigate to the SingleCourseFragment
+            viewmodel.viewModelScope.launch {
+
+                val singleCourseFragment = SingleCourseFragment()
+
+                val item : Course = viewmodel.getCourse(item.courseID)
+
+                // Pass the clicked course to the fragment using a Bundle
+                val bundle = Bundle()
+                bundle.putSerializable("course", item)
+                singleCourseFragment.arguments = bundle
+
+                // Use findNavController to navigate to SingleCourseFragment with the bundle
+                fragment.findNavController().navigate(R.id.action_navigation_deliverables_to_navigation_single_course, bundle)
+            }
+        }
 
         deliverableMenu.setOnClickListener {
             val popup = PopupMenu(context, deliverableMenu)

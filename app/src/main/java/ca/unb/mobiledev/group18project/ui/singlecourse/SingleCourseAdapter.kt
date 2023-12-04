@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.ImageView
+import android.widget.PopupMenu
 import android.widget.TextView
 import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.AppCompatActivity
@@ -36,13 +37,37 @@ class SingleCourseAdapter(context: Context, items: List<Deliverable>, private va
         val deliverableWeight = currView!!.findViewById<TextView>(R.id.deliverable_weight)
         val deliverableGrade = currView!!.findViewById<TextView>(R.id.deliverable_grade)
 
-        val DeliverableMenu = currView!!.findViewById<ImageView>(R.id.image_menu)
+        val deliverableMenu = currView!!.findViewById<ImageView>(R.id.image_menu)
+
+
+        if(item!!.grade != null) {
+            deliverableGrade.text = "Grade: "+item!!.grade.toString()+"%"
+        }else{
+            deliverableGrade.text = "No Grade"
+        }
 
         deliverableName.text = item!!.name
         deliverableDate.text = item.dueDate +" "+ item.dueTime
-        deliverableWeight.text = item.weight.toString() + "%"
-        deliverableGrade.text= item.grade.toString()+ "%"
+        deliverableWeight.text = "Weight: "+item.weight.toString() + "%"
 
+        deliverableMenu.setOnClickListener {
+            val popup = PopupMenu(context, deliverableMenu)
+            popup.inflate(R.menu.courselist_menu)
+            popup.setOnMenuItemClickListener { menuItem ->
+                when (menuItem.itemId) {
+                    R.id.menu_option_edit -> {
+                        fragment.BuildDialog("EDIT DELIVERABLE", item, false)
+                        true
+                    }
+                    R.id.menu_option_delete -> {
+                        viewmodel.delete(item)
+                        true
+                    }
+                    else -> false
+                }
+            }
+            popup.show()
+        }
 
         return currView!!
     }
