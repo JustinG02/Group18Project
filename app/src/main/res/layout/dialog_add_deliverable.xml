@@ -127,7 +127,8 @@
         android:layout_height="wrap_content"
         android:text="Additional Information:"
         app:layout_constraintBottom_toTopOf="@+id/infoTextView"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        android:visibility="gone"/>
 
     <EditText
         android:id="@+id/infoTextView"
@@ -137,6 +138,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.463"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        android:visibility="gone"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

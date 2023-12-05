@@ -25,6 +25,7 @@ import ca.unb.mobiledev.group18project.ui.courses.CoursesAdapter
 import ca.unb.mobiledev.group18project.ui.courses.CoursesViewModel
 import java.text.SimpleDateFormat
 import java.util.Calendar
+import java.util.Date
 import java.util.Locale
 
 class DeliverablesFragment : Fragment(), View.OnClickListener {
@@ -95,21 +96,43 @@ class DeliverablesFragment : Fragment(), View.OnClickListener {
 
         dueDateButton.setOnClickListener {
             val calendar = Calendar.getInstance()
+            var year = calendar.get(Calendar.YEAR)
+            var month = calendar.get(Calendar.MONTH)
+            var day = calendar.get(Calendar.DAY_OF_MONTH)
+
+            if (!new && deliverable?.dueDate != null) {
+                val dueDateParts = deliverable.dueDate.toString().split("-")
+                if (dueDateParts.size == 3) {
+                    year = dueDateParts[0].toInt()  // Year
+                    month = dueDateParts[1].toInt() - 1  // Month is 0-based in Calendar
+                    day = dueDateParts[2].toInt()   // Day
+                }
+            }
             val datePickerDialog = DatePickerDialog(requireContext(), { _, year, month, dayOfMonth ->
                 // Note: Month is 0-based, so add 1 for display
                 selectedDueDate = String.format("%04d-%02d-%02d", year, month + 1, dayOfMonth)
                 dueDateButton.text = selectedDueDate
-            }, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH))
+            }, year, month, day)
 
             datePickerDialog.show()
         }
 
         dueTimeButton.setOnClickListener {
             val calendar = Calendar.getInstance()
+            var hour = calendar.get(Calendar.HOUR_OF_DAY)
+            var minute = calendar.get(Calendar.MINUTE)
+
+            if (!new && deliverable?.dueTime != null) {
+                val dueTimeParts = deliverable.dueTime.toString().split(":")
+                if (dueTimeParts.size == 2) {
+                    hour = dueTimeParts[0].toInt()
+                    minute = dueTimeParts[1].toInt()
+                }
+            }
             val timePickerDialog = TimePickerDialog(requireContext(), { _, hourOfDay, minute ->
                 selectedDueTime = String.format("%02d:%02d", hourOfDay, minute)
                 dueTimeButton.text = selectedDueTime
-            }, calendar.get(Calendar.HOUR_OF_DAY), calendar.get(Calendar.MINUTE), true)
+            }, hour, minute, true)
 
             timePickerDialog.show()
         }
@@ -218,11 +241,8 @@ class DeliverablesFragment : Fragment(), View.OnClickListener {
     fun updateDeliverables(){
         //Temporary Placed here to update past dates
         val calendar = Calendar.getInstance()
-        val dateFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
-        val currentDate = dateFormat.format(calendar.time)
-        val timeFormat = SimpleDateFormat("HH:mm", Locale.getDefault())
-        val currentTime =  timeFormat.format(calendar.time)
+        val currentDateTime = SimpleDateFormat("yyyy-MM-dd HH:mm", Locale.getDefault()).format(calendar.time)
 
-        mDeliverablesViewModel.updatePastDates(currentDate,currentTime)
+        mDeliverablesViewModel.updatePastDates(currentDateTime)
     }
 }

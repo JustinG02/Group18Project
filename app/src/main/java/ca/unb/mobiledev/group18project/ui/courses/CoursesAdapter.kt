@@ -85,6 +85,8 @@ class CoursesAdapter(context: Context, items: List<Course>, private val viewmode
             popup.show()
         }
 
+
+
         // Return the completed view to render on screen
         return currView
     }
@@ -100,4 +102,6 @@ class CoursesAdapter(context: Context, items: List<Course>, private val viewmode
         val formattedDate = outputDateFormat.format(date)
         return "$formattedDate"
     }
+
+
 }

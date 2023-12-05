@@ -1,9 +1,17 @@
 package ca.unb.mobiledev.group18project
 
+import android.Manifest
+import android.app.NotificationChannel
+import android.app.NotificationManager
+import android.content.Context
+import android.content.pm.PackageManager
+import android.os.Build
 import android.os.Bundle
 import android.view.View
+import androidx.annotation.RequiresApi
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.ActivityCompat
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
@@ -14,6 +22,12 @@ import ca.unb.mobiledev.group18project.databinding.ActivityMainBinding
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
+
+    object Constants {
+        // Strings will serve as keys when saving state between activities
+        const val NOTIFICATION_CHANNEL_ID = "GradeTracker_CHANNEL_1"
+        const val NOTIFICATION_REQUEST_ID = 1
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -36,6 +50,13 @@ class MainActivity : AppCompatActivity() {
         )
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
+
+        checkNotificationPermissions()
+        createNotificationChannel()
+
+        if (intent.getBooleanExtra("open_deliverable_fragment", false)) {
+            findNavController(R.id.nav_host_fragment_activity_main).navigate(R.id.navigation_deliverables)
+        }
     }
 
     override fun onSupportNavigateUp(): Boolean {
@@ -49,4 +70,44 @@ class MainActivity : AppCompatActivity() {
     fun showBottomNav() {
         binding.navView.visibility = View.VISIBLE
     }
+
+    private fun checkNotificationPermissions() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            if (ActivityCompat.checkSelfPermission(
+                    this,
+                    Manifest.permission.POST_NOTIFICATIONS
+                ) != PackageManager.PERMISSION_GRANTED
+            ) {
+                requestRuntimePermissions()
+            }
+        }
+    }
+
+    private fun createNotificationChannel() {
+        // Create the NotificationChannel, but only on API 26+ because
+        // the NotificationChannel class is not in the Support Library.
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            val name = "Deliverable Notifications"
+            val descriptionText = "Notifications for deliverables"
+            val importance = NotificationManager.IMPORTANCE_HIGH
+            val channel = NotificationChannel(Constants.NOTIFICATION_CHANNEL_ID, name, importance).apply {
+                description = descriptionText
+            }
+            // Register the channel with the system.
+            val notificationManager: NotificationManager =
+                getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+            notificationManager.createNotificationChannel(channel)
+        }
+    }
+
+
+    @RequiresApi(Build.VERSION_CODES.TIRAMISU)
+    private fun requestRuntimePermissions() {
+        ActivityCompat.requestPermissions(this, arrayOf(
+            Manifest.permission.POST_NOTIFICATIONS
+        ), Constants.NOTIFICATION_REQUEST_ID)
+    }
+
+
+
 }

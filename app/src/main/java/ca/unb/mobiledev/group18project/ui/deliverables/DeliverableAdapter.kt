@@ -1,7 +1,13 @@
 package ca.unb.mobiledev.group18project.ui.deliverables
 
+import android.app.AlarmManager
+import android.app.PendingIntent
 import android.content.Context
+import android.content.Intent
+import android.os.Build
 import android.os.Bundle
+import android.provider.Settings
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,17 +15,21 @@ import android.widget.ArrayAdapter
 import android.widget.ImageView
 import android.widget.PopupMenu
 import android.widget.TextView
+import androidx.annotation.RequiresApi
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.viewModelScope
 import androidx.navigation.fragment.findNavController
+import ca.unb.mobiledev.group18project.NotificationReceiver
 import ca.unb.mobiledev.group18project.R
 import ca.unb.mobiledev.group18project.entities.Course
 import ca.unb.mobiledev.group18project.entities.Deliverable
 import ca.unb.mobiledev.group18project.ui.courses.CoursesViewModel
+import ca.unb.mobiledev.group18project.ui.settings.SettingsFragment
 import ca.unb.mobiledev.group18project.ui.singlecourse.SingleCourseFragment
 import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
+import java.util.Calendar
 import java.util.Locale
 
 class DeliverableAdapter(context: Context, items: List<Deliverable>, private val viewmodel: DeliverablesViewModel, private val fragment: DeliverablesFragment) : ArrayAdapter<Deliverable>(
@@ -92,7 +102,7 @@ class DeliverableAdapter(context: Context, items: List<Deliverable>, private val
             popup.show()
         }
 
-
+        scheduleNotification(item)
         // Return the completed view to render on screen
         return currView
     }
@@ -120,5 +130,54 @@ class DeliverableAdapter(context: Context, items: List<Deliverable>, private val
         val formattedTime = outputTimeFormat.format(time)
         return "$formattedTime"
 
+    }
+
+
+    fun scheduleNotification(deliverable: Deliverable) {
+
+
+        val alarmManager = context.getSystemService(Context.ALARM_SERVICE) as? AlarmManager
+        val intent = Intent(context, NotificationReceiver::class.java)
+        intent.putExtra("deliverable_id", deliverable.delivID)
+        intent.putExtra("deliverable_name", deliverable.name)
+        intent.putExtra("deliverable_courseName", deliverable.courseName)
+        val pendingIntent = PendingIntent.getBroadcast(context, deliverable.delivID, intent, PendingIntent.FLAG_UPDATE_CURRENT)
+
+        val notificationTime = getNotificationTime(deliverable.dueDate, deliverable.dueTime)
+
+        if(notificationTime.timeInMillis < System.currentTimeMillis()){
+            return
+        }
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+            if (alarmManager?.canScheduleExactAlarms() == true) {
+                alarmManager?.setExact(AlarmManager.RTC_WAKEUP, notificationTime.timeInMillis, pendingIntent)
+            } else {
+                val intent = Intent(Settings.ACTION_REQUEST_SCHEDULE_EXACT_ALARM)
+                context.startActivity(intent)
+            }
+        } else {
+            alarmManager?.setExact(AlarmManager.RTC_WAKEUP, notificationTime.timeInMillis, pendingIntent)
+        }
+
+    }
+
+    fun getNotificationTime(dueDate: String?, dueTime: String?): Calendar {
+        val cal = Calendar.getInstance()
+        if(dueTime.isNullOrEmpty()){
+            val sdf = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
+            cal.time = sdf.parse("$dueDate")!!
+        }else{
+            val sdf = SimpleDateFormat("yyyy-MM-dd HH:mm", Locale.getDefault())
+            cal.time = sdf.parse("$dueDate $dueTime")!!
+        }
+
+        if(SettingsFragment.selectedAlertValue == 0){
+            cal.add(Calendar.MINUTE, -1)
+        }else{
+            cal.add(Calendar.HOUR, SettingsFragment.selectedAlertValue)
+        }
+
+        return cal
     }
 }

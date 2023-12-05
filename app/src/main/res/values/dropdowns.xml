@@ -6,6 +6,7 @@
         <item>5.0</item>
     </string-array>
     <string-array name="alert">
+        <item>1 minute before</item>
         <item>1 hour before</item>
         <item>12 hours before</item>
         <item>1 day before</item>

@@ -29,8 +29,11 @@ interface DeliverableDao {
     @Update
     fun updateDeliverable(deliverable: Deliverable)
 
-    @Query("UPDATE deliverables_table SET completed = '1' WHERE dueDate < :currentDate AND dueTime < :currentTime")
-    fun updatePastDates(currentDate: String, currentTime: String)
+    @Query("UPDATE deliverables_table SET completed = '1' WHERE (dueDate || ' ' || dueTime) < :currentDateTime")
+    fun updatePastDates(currentDateTime: String)
+
+    @Query("UPDATE deliverables_table SET completed = '0' WHERE (dueDate || ' ' || dueTime) > :currentDateTime")
+    fun updateFutureDates(currentDateTime: String)
 
     @Query("SELECT * from courses_table WHERE courseID = :courseID")
     fun getCourse(courseID: Int): List<Course>

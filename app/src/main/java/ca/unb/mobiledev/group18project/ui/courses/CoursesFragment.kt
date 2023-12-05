@@ -93,22 +93,46 @@ open class CoursesFragment : Fragment(), View.OnClickListener {
 
         startDateButton.setOnClickListener {
             val calendar = Calendar.getInstance()
+            var year = calendar.get(Calendar.YEAR)
+            var month = calendar.get(Calendar.MONTH)
+            var day = calendar.get(Calendar.DAY_OF_MONTH)
+
+            if (!new && course?.startDate != null) {
+                val dueDateParts = course.startDate.toString().split("-")
+                if (dueDateParts.size == 3) {
+                    year = dueDateParts[0].toInt()  // Year
+                    month = dueDateParts[1].toInt() - 1  // Month is 0-based in Calendar
+                    day = dueDateParts[2].toInt()   // Day
+                }
+            }
             val datePickerDialog = DatePickerDialog(requireContext(), { _, year, month, dayOfMonth ->
                 // Note: Month is 0-based, so add 1 for display
                 selectedStartDate = String.format("%04d-%02d-%02d", year, month + 1, dayOfMonth)
                 startDateButton.text = selectedStartDate
-            }, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH))
+            }, year, month, day)
 
             datePickerDialog.show()
         }
 
         endDateButton.setOnClickListener {
             val calendar = Calendar.getInstance()
+            var year = calendar.get(Calendar.YEAR)
+            var month = calendar.get(Calendar.MONTH)
+            var day = calendar.get(Calendar.DAY_OF_MONTH)
+
+            if (!new && course?.endDate != null) {
+                val dueDateParts = course.endDate.toString().split("-")
+                if (dueDateParts.size == 3) {
+                    year = dueDateParts[0].toInt()  // Year
+                    month = dueDateParts[1].toInt() - 1  // Month is 0-based in Calendar
+                    day = dueDateParts[2].toInt()   // Day
+                }
+            }
             val datePickerDialog = DatePickerDialog(requireContext(), { _, year, month, dayOfMonth ->
                 // Note: Month is 0-based, so add 1 for display
                 selectedEndDate = String.format("%04d-%02d-%02d", year, month + 1, dayOfMonth)
                 endDateButton.text = selectedEndDate
-            }, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH))
+            }, year, month, day)
 
             datePickerDialog.show()
         }

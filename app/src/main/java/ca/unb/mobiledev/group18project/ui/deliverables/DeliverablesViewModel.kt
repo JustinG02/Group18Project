@@ -42,8 +42,12 @@ class DeliverablesViewModel(application: Application) : AndroidViewModel(applica
         return deliverableRepository.getAllDeliverablesOfACourse(courseID)
     }
 
-    fun updatePastDates(currentDate: String, currentTime: String) {
-        deliverableRepository.updatePastDates(currentDate,currentTime)
+    fun updatePastDates(currentDateTime: String) {
+        deliverableRepository.updatePastDates(currentDateTime)
+    }
+
+    fun updateFutureDates(currentDateTime: String) {
+        deliverableRepository.updateFutureDates(currentDateTime)
     }
 
     suspend fun getCourse(courseId: Int): Course {

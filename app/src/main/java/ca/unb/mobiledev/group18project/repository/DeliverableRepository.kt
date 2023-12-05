@@ -60,8 +60,12 @@ class DeliverableRepository(application: Application) {
         return searchResultFuture.get()
     }
 
-    fun updatePastDates(currentDate: String, currentTime: String) {
-        AppDatabase.databaseWriterExecutor.execute { deliverableDao!!.updatePastDates(currentDate, currentTime) }
+    fun updatePastDates(currentDateTime: String) {
+        AppDatabase.databaseWriterExecutor.execute { deliverableDao!!.updatePastDates(currentDateTime) }
+    }
+
+    fun updateFutureDates(currentDateTime: String) {
+        AppDatabase.databaseWriterExecutor.execute { deliverableDao!!.updateFutureDates(currentDateTime) }
     }
 
     suspend fun getCourse(courseID: Int): Course {
