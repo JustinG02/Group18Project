@@ -48,8 +48,6 @@ class SingleCourseAdapter(context: Context, items: List<Deliverable>, private va
         val deliverableGrade = currView!!.findViewById<TextView>(R.id.deliverable_grade)
 
         val deliverableMenu = currView!!.findViewById<ImageView>(R.id.image_menu)
-
-
         if(item!!.grade != null) {
             deliverableGrade.text = "Grade: "+item!!.grade.toString()+"%"
         }else{
@@ -156,4 +154,6 @@ class SingleCourseAdapter(context: Context, items: List<Deliverable>, private va
 
         return cal
     }
+
+
 }

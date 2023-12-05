@@ -3,6 +3,7 @@ package ca.unb.mobiledev.group18project.ui.courses
 import android.app.AlertDialog
 import android.app.DatePickerDialog
 import android.app.TimePickerDialog
+import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -11,11 +12,13 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
 import android.widget.ListView
+import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
+import ca.unb.mobiledev.group18project.GradeCalculations
 import ca.unb.mobiledev.group18project.R
 import ca.unb.mobiledev.group18project.databinding.FragmentCoursesBinding
 import ca.unb.mobiledev.group18project.entities.Course
@@ -57,6 +60,8 @@ open class CoursesFragment : Fragment(), View.OnClickListener {
         addButton.setOnClickListener(this)
 
         updatePastClasses()
+
+        retrieveGPA()
 
         mCourseViewModel.getAllIncompleteCourses().observe(viewLifecycleOwner) {
             SearchIncompleteCourses()
@@ -191,6 +196,8 @@ open class CoursesFragment : Fragment(), View.OnClickListener {
         mCourseViewModel.getAllIncompleteCourses().observe(viewLifecycleOwner) { courses ->
             val adapter = CoursesAdapter(requireContext(), courses, mCourseViewModel, this)
             mListView.adapter = adapter
+
+            updateGPA(courses)
         }
     }
 
@@ -201,5 +208,33 @@ open class CoursesFragment : Fragment(), View.OnClickListener {
         val currentDate = dateFormat.format(calendar.time)
 
         mCourseViewModel.updatePastDates(currentDate)
+    }
+
+    open fun updateGPA(courses: List<Course>){
+        var gpaText = binding.root.findViewById<TextView>(R.id.gpa)
+
+        // Calculate GPA
+        val result = GradeCalculations.calculateCumulativeGPA(courses)
+        val resultText = String.format("%.1f", result)
+
+        // Save GPA to Shared Preferences
+        val sharedPref = activity?.getPreferences(Context.MODE_PRIVATE) ?: return
+        with(sharedPref.edit()) {
+            putFloat("GPA", result.toFloat())
+            apply()
+        }
+
+        // Update UI
+        gpaText.text = "GPA: $resultText"
+    }
+
+    open fun retrieveGPA() {
+        val sharedPref = activity?.getPreferences(Context.MODE_PRIVATE)
+        val savedGPA = sharedPref?.getFloat("GPA", 0.0f) ?: 0.0f
+        val formattedGPA = String.format("%.1f", savedGPA)
+
+        // Assuming you have a TextView to display the GPA
+        val gpaText = binding.root.findViewById<TextView>(R.id.gpa)
+        gpaText.text = "GPA: $formattedGPA"
     }
 }

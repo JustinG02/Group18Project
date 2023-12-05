@@ -12,6 +12,7 @@ import android.widget.PopupMenu
 import android.widget.TextView
 import androidx.lifecycle.LiveData
 import androidx.navigation.fragment.findNavController
+import ca.unb.mobiledev.group18project.GradeCalculations
 import ca.unb.mobiledev.group18project.R
 import ca.unb.mobiledev.group18project.entities.Course
 import ca.unb.mobiledev.group18project.ui.singlecourse.SingleCourseFragment
@@ -102,6 +103,5 @@ class CoursesAdapter(context: Context, items: List<Course>, private val viewmode
         val formattedDate = outputDateFormat.format(date)
         return "$formattedDate"
     }
-
 
 }

@@ -13,12 +13,14 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.ListView
 import android.widget.Spinner
+import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
+import ca.unb.mobiledev.group18project.GradeCalculations
 import ca.unb.mobiledev.group18project.MainActivity
 import ca.unb.mobiledev.group18project.R
 import ca.unb.mobiledev.group18project.databinding.FragmentSingleCourseBinding
@@ -74,9 +76,11 @@ class SingleCourseFragment : Fragment(), View.OnClickListener {
         mListView = root.findViewById(R.id.deliverable_list)
         val addButton = root.findViewById<Button>(R.id.add_deliverables)
 
-        updateDeliverables()
+        refresh(root)
 
         addButton.setOnClickListener(this)
+
+
 
         return root
     }
@@ -230,7 +234,7 @@ class SingleCourseFragment : Fragment(), View.OnClickListener {
 
                         mDeliverablesViewModel.update(deliverable!!)
                     }
-                    updateDeliverables()
+                    refresh(binding.root)
                 } catch(e: Exception){
                 Toast.makeText(binding.root.context, "Something Went Wrong. Please ensure correct format", Toast.LENGTH_SHORT).show()
                 return@setPositiveButton
@@ -244,8 +248,18 @@ class SingleCourseFragment : Fragment(), View.OnClickListener {
 
     fun SearchCourseDeliverables(courseID: Int) {
         mDeliverablesViewModel.getAllDeliverablesOfACourse(courseID).observe(viewLifecycleOwner) { deliverables ->
+            updateCourseGrade(deliverables)
             val adapter = SingleCourseAdapter(requireContext(), deliverables, mDeliverablesViewModel, this)
             mListView.adapter = adapter
+
+            val courseCurrentGrade = binding.root.findViewById<TextView>(R.id.currentGradePercentage)
+            val courseRunningGrade = binding.root.findViewById<TextView>(R.id.runningGradePercentage)
+            val coursePercentComplete = binding.root.findViewById<TextView>(R.id.percentCompletePercentage)
+
+
+            courseCurrentGrade.text = thisCourse.currentGrade.toString() + "%"
+            courseRunningGrade.text = thisCourse.runningGrade.toString() + "%"
+            coursePercentComplete.text = thisCourse.percentComplete.toString() + "%"
         }
     }
 
@@ -256,6 +270,32 @@ class SingleCourseFragment : Fragment(), View.OnClickListener {
 
         mDeliverablesViewModel.updatePastDates(currentDateTime)
         mDeliverablesViewModel.updateFutureDates(currentDateTime)
+    }
+
+    fun updateCourseGrade(deliverables : List<Deliverable>){
+
+        thisCourse.percentComplete = GradeCalculations.calculatePercentComplete(deliverables).toInt()
+        thisCourse.runningGrade = GradeCalculations.calculateRunningGrade(deliverables).toInt()
+        thisCourse.currentGrade = GradeCalculations.calculateCurrentGrade(deliverables).toInt()
+        thisCourse.letterGrade = GradeCalculations.gradePointsToLetterGrade(thisCourse.currentGrade)
+
+        mCourseViewModel.update(thisCourse)
+    }
+
+    fun refresh(root: View){
+
+        updateDeliverables()
+
+        val courseCurrentGrade = root.findViewById<TextView>(R.id.currentGradePercentage)
+        val courseRunningGrade = root.findViewById<TextView>(R.id.runningGradePercentage)
+        val coursePercentComplete = root.findViewById<TextView>(R.id.percentCompletePercentage)
+
+
+        courseCurrentGrade.text = thisCourse.currentGrade.toString() + "%"
+        courseRunningGrade.text = thisCourse.runningGrade.toString() + "%"
+        coursePercentComplete.text = thisCourse.percentComplete.toString() + "%"
+
+
     }
 
 }
