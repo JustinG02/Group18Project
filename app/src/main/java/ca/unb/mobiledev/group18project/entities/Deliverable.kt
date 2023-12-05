@@ -10,7 +10,7 @@ import java.util.Date
     foreignKeys = [ForeignKey(
     entity = Course::class,
     childColumns = ["courseID"],
-    parentColumns = ["courseID"])])
+    parentColumns = ["courseID"], onDelete = ForeignKey.CASCADE)])
 class Deliverable {
     @PrimaryKey(autoGenerate = true)
     var delivID : Int = 0

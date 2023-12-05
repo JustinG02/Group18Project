@@ -257,9 +257,15 @@ class SingleCourseFragment : Fragment(), View.OnClickListener {
             val coursePercentComplete = binding.root.findViewById<TextView>(R.id.percentCompletePercentage)
 
 
-            courseCurrentGrade.text = thisCourse.currentGrade.toString() + "%"
-            courseRunningGrade.text = thisCourse.runningGrade.toString() + "%"
-            coursePercentComplete.text = thisCourse.percentComplete.toString() + "%"
+            if(thisCourse.currentGrade != -1 && thisCourse.runningGrade != -1 && thisCourse.percentComplete != -1){
+                courseCurrentGrade.text = thisCourse.currentGrade.toString() + "%"
+                courseRunningGrade.text = thisCourse.runningGrade.toString() + "%"
+                coursePercentComplete.text = thisCourse.percentComplete.toString() + "%"
+            }else{
+                courseCurrentGrade.text = "0%"
+                courseRunningGrade.text = "0%"
+                coursePercentComplete.text = "0%"
+            }
         }
     }
 
@@ -290,10 +296,16 @@ class SingleCourseFragment : Fragment(), View.OnClickListener {
         val courseRunningGrade = root.findViewById<TextView>(R.id.runningGradePercentage)
         val coursePercentComplete = root.findViewById<TextView>(R.id.percentCompletePercentage)
 
+        if(thisCourse.currentGrade != -1 && thisCourse.runningGrade != -1 && thisCourse.percentComplete != -1){
+            courseCurrentGrade.text = thisCourse.currentGrade.toString() + "%"
+            courseRunningGrade.text = thisCourse.runningGrade.toString() + "%"
+            coursePercentComplete.text = thisCourse.percentComplete.toString() + "%"
+        }else{
+            courseCurrentGrade.text = "0%"
+            courseRunningGrade.text = "0%"
+            coursePercentComplete.text = "0%"
+        }
 
-        courseCurrentGrade.text = thisCourse.currentGrade.toString() + "%"
-        courseRunningGrade.text = thisCourse.runningGrade.toString() + "%"
-        coursePercentComplete.text = thisCourse.percentComplete.toString() + "%"
 
 
     }

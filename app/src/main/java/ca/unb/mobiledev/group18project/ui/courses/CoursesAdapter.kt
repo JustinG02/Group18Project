@@ -39,7 +39,9 @@ class CoursesAdapter(context: Context, items: List<Course>, private val viewmode
         val courseLetterGrade = currView!!.findViewById<TextView>(R.id.course_letterGrade)
         val courseDate = currView!!.findViewById<TextView>(R.id.course_date)
 
-        if(!item!!.letterGrade.isNullOrEmpty()){
+        if(item!!.currentGrade == -1 && item.runningGrade == -1 && item.percentComplete == -1){
+            courseLetterGrade.visibility = View.INVISIBLE
+        }else{
             courseLetterGrade.text = item!!.letterGrade
             courseLetterGrade.visibility = View.VISIBLE
         }

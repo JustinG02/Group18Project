@@ -24,10 +24,10 @@ class Course : Serializable {
 
     var letterGrade: String? = null
 
-    var percentComplete: Int = 0
+    var percentComplete: Int = -1
 
-    var currentGrade: Int = 0
+    var currentGrade: Int = -1
 
-    var runningGrade: Int = 0
+    var runningGrade: Int = -1
 
 }

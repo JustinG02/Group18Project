@@ -12,16 +12,25 @@ class GradeCalculations {
     //Current grade: running grade/ percent complete
     companion object Functions{
             fun calculatePercentComplete(deliverables: List<Deliverable>): Double {
+                if(deliverables.isEmpty()){
+                    return -1.0
+                }
                 return deliverables.filter { it.grade != null }
                     .sumOf { it.weight!!.toDouble() }
             }
 
             fun calculateRunningGrade(deliverables: List<Deliverable>): Double {
+                if(deliverables.isEmpty()){
+                    return -1.0
+                }
                 return deliverables.filter { it.grade != null }
                     .sumOf { (it.weight!!.toDouble() /100) * it.grade!! }
             }
 
             fun calculateCurrentGrade(deliverables: List<Deliverable>): Double {
+                if(deliverables.isEmpty()){
+                    return -1.0
+                }
                 val percentComplete = calculatePercentComplete(deliverables)
                 return if (percentComplete > 0) {
                     (calculateRunningGrade(deliverables) * 100) / percentComplete
@@ -56,7 +65,7 @@ class GradeCalculations {
                     percentage >= 65 -> 2.7  // B-
                     percentage >= 60 -> 2.3  // C+
                     percentage >= 55 -> 2.0  // C
-                    percentage < 50 -> 1.0   // D
+                    percentage >= 50 -> 1.0   // D
                     else -> 0.0              // F
                 }
             }
@@ -67,8 +76,9 @@ class GradeCalculations {
             }
 
             fun calculateCumulativeGPA(courses: List<Course>): Double {
-                val totalGradePoints = courses.sumOf { calculateCourseGradePoints(it) }
-                val totalCreditHours = courses.sumOf { it.ch }
+                var course = courses.filter { it.letterGrade != null }
+                val totalGradePoints = course.sumOf { calculateCourseGradePoints(it) }
+                val totalCreditHours = course.sumOf { it.ch }
                 return if (totalCreditHours > 0) totalGradePoints / totalCreditHours else 0.0
             }
     }
